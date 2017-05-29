@@ -1,12 +1,9 @@
 package decorator;
 
 public class Mocha extends Condiment {
-
-	private Beverage beverage;
-	
 	
 	public Mocha(Beverage beverage) {
-		super();
+		super(beverage);
 		this.beverage = beverage;
 	}
 

@@ -2,12 +2,8 @@ package decorator;
 
 public class Choco extends Condiment {
 
-	private Beverage beverage;
-	
-	
 	public Choco(Beverage beverage) {
-		super();
-		this.beverage = beverage;
+		super(beverage);		
 	}
 
 	@Override
