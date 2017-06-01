@@ -26,8 +26,9 @@ class DelayTasks implements Delayed
 			return 0;
 	}
 	@Override
-	public long getDelay(TimeUnit unit) {		
-		return unit.convert(delay, TimeUnit.MILLISECONDS) - System.currentTimeMillis() ;
+	public long getDelay(TimeUnit unit) {	
+		long timeRemaining = delay - System.currentTimeMillis();
+		return unit.convert(timeRemaining, TimeUnit.MILLISECONDS) ;
 	}
 	@Override
 	public String toString() {
@@ -40,7 +41,13 @@ public class DelayQueueTest {
 	public static void main(String[] args) throws InterruptedException {
 		DelayQueue<Delayed> queue = new DelayQueue<Delayed>();
 		for(int i=1;i<=5;i++)
-			queue.offer(new DelayTasks("task"+i, 1));
+		{
+			int delay = (int)(Math.random()*10);
+			String task = "task"+i;
+			System.out.println("added "+task+" delay "+delay+" secs");
+			queue.offer(new DelayTasks(task, delay));
+		}
+			
 		
 		while(!queue.isEmpty())
 			System.out.println(queue.take());
