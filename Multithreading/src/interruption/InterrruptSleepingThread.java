@@ -3,7 +3,7 @@ package interruption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterrruptTest {
+public class InterrruptSleepingThread {
 	public static void main(String[] args) throws InterruptedException {
 		final List<String> list = new ArrayList<String>();
 		Thread t1 = new Thread(new Runnable() {
@@ -26,6 +26,9 @@ public class InterrruptTest {
 				}
 			}
 		});
+		
+		
+		
 		t1.start();
 		Thread.sleep(5000);
 		System.out.println("main thread interrupting the worker thread");

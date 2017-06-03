@@ -61,45 +61,30 @@ public class ProducerConsumerUsingLockTest {
 	public static void main(String[] args) throws InterruptedException {
 		final PCQueue<String> queue = new PCQueue<String>(10);
 		queue.put("ELEMENT");
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				while(true){
-					try {
-						String element = queue.take();
-						System.out.println(Thread.currentThread().getName()+" takes "+element);
-						Thread.sleep(2000);
-						queue.put(element);
-						
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+		
+		Runnable consumer = ()-> {
+			while(!Thread.currentThread().isInterrupted()){
+				try {
+					String element = queue.take();
+					System.out.println(Thread.currentThread().getName()+" takes "+element);
+					Thread.sleep(2000);
+					queue.put(element);
 					
+				} catch (InterruptedException e) {					
+					e.printStackTrace();
+					Thread.currentThread().interrupt();
 				}
 				
 			}
-		}).start();
+		};
 		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				while(true){
-					try {
-						String element = queue.take();
-						System.out.println(Thread.currentThread().getName()+" takes "+element);
-						Thread.sleep(2000);
-						queue.put(element);
-						
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}
-			}
-		}).start();
+		Thread consumer1 = new Thread(consumer,"consumer1");		
+		Thread consumer2 = new Thread(consumer,"consumer2");
+		consumer1.start();
+		consumer2.start();
+		Thread.sleep(20*1000);
+		consumer1.interrupt();
+		consumer2.interrupt();
+		
 	}
 }
