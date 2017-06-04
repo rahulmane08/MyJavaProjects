@@ -1,3 +1,5 @@
+package locks;
+
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ReentrantLockTest 
@@ -9,8 +11,8 @@ public class ReentrantLockTest
 		{
 			try
 			{
-//				lock.lockInterruptibly();
-				lock.lock();
+				lock.lockInterruptibly();
+//				lock.lock();
 				System.out.println(Thread.currentThread().getName()+" got the lock");
 				Thread.sleep(10*1000);
 				System.out.println(Thread.currentThread().getName()+" executed");

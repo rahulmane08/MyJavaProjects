@@ -1,3 +1,7 @@
+package test.queue;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 public class ConcurrentLinkedQueueExample {
    public static void main(String[] args) {
       ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<String>();

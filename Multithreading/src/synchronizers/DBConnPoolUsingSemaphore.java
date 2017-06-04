@@ -22,15 +22,15 @@ class DBConnectionPool {
 		try {
 			semaphore.acquire();
 			connection = connectionPool.poll();
-			if (connection == null)
-				semaphore.release();
+			
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			e.printStackTrace();			
+		}
+		finally
+		{
 			semaphore.release();
 		}
-
 		return connection;
-
 	}
 
 	public void returnConnection(String connection) {

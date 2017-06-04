@@ -1,3 +1,5 @@
+package locks;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -21,9 +23,7 @@ public class ReentrantLockTryLockTest
 						System.out.println(Thread.currentThread().getName()+" executed");
 					} catch (InterruptedException e) 
 					{
-						e.printStackTrace();
-						System.out.println(Thread.currentThread().isInterrupted());
-						Thread.interrupted();
+						handleInterrupts(e);
 					}
 					finally 
 					{
@@ -35,10 +35,10 @@ public class ReentrantLockTryLockTest
 					System.out.println(Thread.currentThread().getName()+" couldnt get the lock");
 				}
 			} 
-			catch (Exception e) 
+			catch (InterruptedException e) 
 			{
 				
-				e.printStackTrace();
+				handleInterrupts(e);
 			}
 			
 		};
@@ -49,6 +49,12 @@ public class ReentrantLockTryLockTest
 		t1.start();
 		t2.start();	
 		Thread.sleep(2*1000);
-		t2.interrupt();
+//		t2.interrupt();
+	}
+	
+	public static void handleInterrupts(InterruptedException ie)
+	{
+		System.out.println(Thread.currentThread().getName()+" interrrupted "+ie.toString());
+		Thread.currentThread().interrupt();
 	}
 }

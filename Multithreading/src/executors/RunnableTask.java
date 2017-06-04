@@ -10,7 +10,7 @@ public class RunnableTask implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(Thread.currentThread()+" executed the task");
+		System.out.println(Thread.currentThread().getName()+" executed the task");
 
 	}
 
