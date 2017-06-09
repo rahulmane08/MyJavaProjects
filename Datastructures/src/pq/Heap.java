@@ -11,8 +11,7 @@ public class Heap
 	
 	private int getBalancedCapacity(int capacity)
 	{
-		int pow = (int)pow(2, ceil(log(new Double(capacity).doubleValue())
-				/log(new Double(2).doubleValue())));
+		int pow = (int)pow(2, ceil(log(new Double(capacity).doubleValue())/log(new Double(2).doubleValue())));
 		 if(pow==capacity)
 			 return getBalancedCapacity(capacity+1);
 		 return pow;

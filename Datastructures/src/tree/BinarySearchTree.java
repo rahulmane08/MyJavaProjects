@@ -4,6 +4,11 @@ public class BinarySearchTree {
 	Node root;
 
 	
+	public BinarySearchTree() {
+		super();
+	}
+	
+
 	public void reverse(Node node)
 	{
 		if(node==null)

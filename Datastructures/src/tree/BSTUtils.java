@@ -2,6 +2,8 @@ package tree;
 
 import java.util.Stack;
 
+import com.sun.org.apache.bcel.internal.generic.ISHL;
+
 public class BSTUtils 
 {
 	public static Node lca(Node root, int elem1, int elem2)
@@ -116,7 +118,10 @@ public class BSTUtils
 			root = root.right;
 		}
 	}
-	
+	static public Node createBalancedBST(int[] sortedArr)
+	{
+		return createBalancedBST(sortedArr,0,sortedArr.length-1);
+	}
 	static public Node createBalancedBST(int[] sortedArr, int left , int right)
 	{
 		if(left>right)
@@ -216,6 +221,75 @@ public class BSTUtils
 			}	
 			
 		}
+	}
+	
+	static public void printRange(Node root, int k1, int k2)
+	{
+		if(root==null)
+			return;
+		printRange(root.left, k1,k2);
+		if(k1<root.data && root.data<=k2)
+			System.out.println(root.data);
+		printRange(root.right, k1, k2);
+	}
+	
+	
+	static class TreeNodesWithSumOfGreaterNodes
+	{
+		static int treeSum;
+		static public void convertToTreeWithMaxNodeSum(Node root)
+		{
+			if(root==null)
+				return;
+			treeSum = TreeUtils.sum(root);
+			updateTreeSumOnNodes(root);
+		}
+		static private void updateTreeSumOnNodes(Node root)
+		{
+			if(root==null)
+				return;
+			updateTreeSumOnNodes(root.left);
+			int nextSum = treeSum - root.data;
+			root.data = treeSum;
+			treeSum = nextSum;
+			updateTreeSumOnNodes(root.right);
+			
+		}
+	}
+	
+	static public int countDirectChildren(Node root)
+	{
+		if(root==null)
+			return 0;
+		return (root.right!=null?1:0)+(root.left!=null?1:0);
+	}
+	
+	static public boolean hasOneChildForEachInternalNode(BinarySearchTree tree)
+	{
+		if(tree==null || tree.root == null)
+			return false;
+		Node root = tree.root;
+		if(TreeUtils.isLeaf(root))
+			return false;
+		return hasOneChildForEachInternalNode(root.left) 
+				&& hasOneChildForEachInternalNode(root.right);
+	}
+	static public boolean hasOneChildForEachInternalNode(Node root)
+	{
+		if(root==null || TreeUtils.isLeaf(root))
+			return true;
+		/*boolean yes = countDirectChildren(root)==1;
+		if(yes)
+		{
+			if(root.left!=null)
+				yes = hasOneChildForEachInternalNode(root.left);
+			if(yes && root.right!=null)
+				yes = hasOneChildForEachInternalNode(root.right);
+		}
+		return yes;*/
+		return (countDirectChildren(root)==1) 
+				&& (hasOneChildForEachInternalNode(root.left)) 
+				&& (hasOneChildForEachInternalNode(root.right));
 	}
 	
 }

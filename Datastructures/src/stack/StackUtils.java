@@ -195,6 +195,7 @@ public class StackUtils {
 		for (int i = 1; i <= 9; i++) {
 			Stack<Integer> stack = new Stack<>();
 			if (i <= n) {
+				System.out.println("found = "+i);
 				stack.push(i);
 				result++;
 			}
@@ -203,6 +204,7 @@ public class StackUtils {
 				for (int j = tp % 10; j <= 9; j++) {
 					int x = tp * 10 + j;
 					if (x <= n) {
+						System.out.println("found = "+x);
 						stack.push(x);
 						result++;
 					}
