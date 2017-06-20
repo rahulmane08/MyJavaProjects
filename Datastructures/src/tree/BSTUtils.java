@@ -291,5 +291,26 @@ public class BSTUtils
 				&& (hasOneChildForEachInternalNode(root.left)) 
 				&& (hasOneChildForEachInternalNode(root.right));
 	}
-	
+	public static int ceil(Node root, int data)
+	{
+		if(root==null)
+			return -1;
+		if(root.data==data)
+			return data;
+		if(root.data<data)
+			return ceil(root.right,data);
+		int ceil = ceil(root.left,data);
+		return (ceil>=data?ceil:root.data);
+	}
+	public static int floor(Node root, int data)
+	{
+		if(root==null)
+			return -1;
+		if(root.data==data)
+			return data;
+		if(root.data<data)
+			return floor(root.left,data);
+		int floor = floor(root.right,data);
+		return (floor<=data?floor:root.data);
+	}
 }
