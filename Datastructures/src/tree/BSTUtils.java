@@ -352,4 +352,12 @@ public class BSTUtils
 				first = first.right;
 		}
 	}
+	static public void toBSTofSameStructure(Node root)
+	{
+		if(root==null)
+			return;
+		int[] inorderArr = OrderedArrays.getInstance().toInorderArray(root);
+		Arrays.sort(inorderArr);
+		OrderedArrays.getInstance().fillTreeWithInorderArr(root, inorderArr);
+	}
 }
