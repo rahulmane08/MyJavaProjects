@@ -16,28 +16,36 @@ public class TreeUtils
 	public static class OrderedArrays
 	{
 		private static int index = 0;
-		static public int[] toInorderArray(Node root)
+		
+		private OrderedArrays(){}
+		
+		public static OrderedArrays instance = new OrderedArrays();
+		
+		public static OrderedArrays getInstance()
+		{
+			index = 0;
+			return instance;
+		}
+		
+		public int[] toInorderArray(Node root)
 		{
 			int[] inorderArr = new int[TreeUtils.size(root)];
-			fillInOrderArray(root, inorderArr);
-			index=0;
+			fillInOrderArray(root, inorderArr);			
 			return inorderArr;
 		}
-		static public int[] toPreorderArray(Node root)
+		public int[] toPreorderArray(Node root)
 		{
 			int[] inorderArr = new int[TreeUtils.size(root)];
-			fillPreOrderArray(root, inorderArr);
-			index=0;
+			fillPreOrderArray(root, inorderArr);			
 			return inorderArr;
 		}
-		static public int[] toPostorderArray(Node root)
+		public int[] toPostorderArray(Node root)
 		{
 			int[] inorderArr = new int[TreeUtils.size(root)];
 			fillPostOrderArray(root, inorderArr);
-			index=0;
 			return inorderArr;
 		}
-		static private void fillInOrderArray(Node root, int[] inorderArr)
+		private void fillInOrderArray(Node root, int[] inorderArr)
 		{
 			if(root==null)
 				return;
@@ -46,7 +54,7 @@ public class TreeUtils
 			fillInOrderArray(root.right, inorderArr);			
 		}
 		
-		static private void fillPreOrderArray(Node root, int[] inorderArr)
+		private void fillPreOrderArray(Node root, int[] inorderArr)
 		{
 			if(root==null)
 				return;
@@ -54,7 +62,7 @@ public class TreeUtils
 			fillPreOrderArray(root.left, inorderArr);			
 			fillPreOrderArray(root.right, inorderArr);			
 		}
-		static private void fillPostOrderArray(Node root, int[] inorderArr)
+		private void fillPostOrderArray(Node root, int[] inorderArr)
 		{
 			if(root==null)
 				return;			
@@ -63,6 +71,14 @@ public class TreeUtils
 			inorderArr[index++]=root.data;
 		}
 		
+		public void fillTreeWithInorderArr(Node root, int[] inorder)
+		{
+			if(root==null)
+				return;
+			fillTreeWithInorderArr(root.left,inorder);
+			root.data = inorder[index++];
+			fillTreeWithInorderArr(root.right,inorder);
+		}
 	}
 	public static class Traversals
 	{
