@@ -313,4 +313,43 @@ public class BSTUtils
 		int floor = floor(root.right,data);
 		return (floor<=data?floor:root.data);
 	}
+	public static boolean checkIfPreorderIsBST(int[] preorder)
+	{		
+		Stack<Integer> s = new Stack<Integer>();
+		int root = Integer.MIN_VALUE;
+		for(int i=0;i<preorder.length;i++)
+		{
+			if(preorder[i]<root)
+				return false;
+			while(!s.isEmpty() && preorder[i]>s.peek())
+				root = s.pop();			
+			s.push(preorder[i]);
+		}
+		
+		return true;
+	}
+	public static void printNodeSumEqualsN(Node root, int n)
+	{
+		if(root==null)
+			return;
+		Node first = convertToSortedDLL(root);
+		Node last = first;
+		while(last.right!=null)
+			last = last.right;
+		while(first!=last)
+		{
+			if(first.data+last.data==n)
+			{
+				System.out.println("Pair found ("+first.data+","+last.data+")");
+				first = first.right;
+				if(first==last)
+					break;
+				last = last.left;
+			}
+			else if(first.data+last.data>n)
+				last = last.left;
+			else
+				first = first.right;
+		}
+	}
 }
