@@ -360,4 +360,51 @@ public class BSTUtils
 		Arrays.sort(inorderArr);
 		OrderedArrays.getInstance().fillTreeWithInorderArr(root, inorderArr);
 	}
+	public static void printCommonNodes(Node root1, Node root2)
+	{
+		if(root1==null || root2 ==null)
+			return;
+		Stack<Node> s1 = new Stack<>();
+		Stack<Node> s2 = new Stack<>();
+		while(true)
+		{
+			if(root1!=null)
+			{
+				s1.push(root1);
+				root1=root1.left;
+			}
+			else if(root2!=null)
+			{
+				s2.push(root2);
+				root2=root2.left;
+			}
+			else 
+			{
+				if(s1.isEmpty() || s2.isEmpty())
+					break;
+				
+				root1 = s1.pop();
+				root2 = s2.pop();
+				
+				if(root1.data==root2.data)
+				{
+					System.out.println("Found a matching node with data = "+root1.data);
+					root1 = root1.right;
+					root2 = root2.right;					
+				}
+				else if(root1.data<root2.data)
+				{
+					root1=root1.right;
+					s2.push(root2);
+					root2=null;
+				}
+				else
+				{
+					root2=root2.right;
+					s1.push(root1);
+					root1=null;
+				}
+			}
+		}
+	}
 }
