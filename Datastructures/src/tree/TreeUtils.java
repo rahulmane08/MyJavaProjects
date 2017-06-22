@@ -13,6 +13,57 @@ import utils.Utils;
 
 public class TreeUtils 
 {
+	public static class OrderedArrays
+	{
+		private static int index = 0;
+		static public int[] toInorderArray(Node root)
+		{
+			int[] inorderArr = new int[TreeUtils.size(root)];
+			fillInOrderArray(root, inorderArr);
+			index=0;
+			return inorderArr;
+		}
+		static public int[] toPreorderArray(Node root)
+		{
+			int[] inorderArr = new int[TreeUtils.size(root)];
+			fillPreOrderArray(root, inorderArr);
+			index=0;
+			return inorderArr;
+		}
+		static public int[] toPostorderArray(Node root)
+		{
+			int[] inorderArr = new int[TreeUtils.size(root)];
+			fillPostOrderArray(root, inorderArr);
+			index=0;
+			return inorderArr;
+		}
+		static private void fillInOrderArray(Node root, int[] inorderArr)
+		{
+			if(root==null)
+				return;
+			fillInOrderArray(root.left, inorderArr);
+			inorderArr[index++]=root.data;
+			fillInOrderArray(root.right, inorderArr);			
+		}
+		
+		static private void fillPreOrderArray(Node root, int[] inorderArr)
+		{
+			if(root==null)
+				return;
+			inorderArr[index++]=root.data;
+			fillPreOrderArray(root.left, inorderArr);			
+			fillPreOrderArray(root.right, inorderArr);			
+		}
+		static private void fillPostOrderArray(Node root, int[] inorderArr)
+		{
+			if(root==null)
+				return;			
+			fillPostOrderArray(root.left, inorderArr);			
+			fillPostOrderArray(root.right, inorderArr);
+			inorderArr[index++]=root.data;
+		}
+		
+	}
 	public static class Traversals
 	{
 		public static void preOrderIterative(Node root)
