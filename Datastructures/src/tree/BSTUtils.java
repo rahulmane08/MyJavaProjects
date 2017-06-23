@@ -410,4 +410,23 @@ public class BSTUtils
 			}
 		}
 	}
+	
+	
+	
+	public BinarySearchTree merge(BinarySearchTree bst1, BinarySearchTree bst2)
+	{
+		if(bst1==null && bst2==null)
+			return null;
+		if(bst1==null)
+			return bst2;
+		if(bst2==null)
+			return bst1;
+		int[] inorder1 = OrderedArrays.getInstance().toInorderArray(bst1.root);
+		int[] inorder2 = OrderedArrays.getInstance().toInorderArray(bst2.root);
+		System.out.println("inorder 1 = "+inorder1);
+		System.out.println("inorder 2 = "+inorder2);
+		int[] merged = array.Arrays.merge(inorder1, inorder2);
+		Node root = createBalancedBST(merged);
+		return new BinarySearchTree(root);
+	}
 }

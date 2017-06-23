@@ -4,6 +4,13 @@ public class BinarySearchTree {
 	Node root;
 
 	
+	
+	public BinarySearchTree(Node root) {
+		super();
+		this.root = root;
+	}
+
+
 	public BinarySearchTree() {
 		super();
 	}

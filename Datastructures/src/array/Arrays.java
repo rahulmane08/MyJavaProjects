@@ -133,4 +133,42 @@ public class Arrays {
 		}
 		return java.util.Arrays.copyOfRange(arr, start, end + 1);
 	}
+	
+	static public int[] merge(int[] a, int[] b)
+	{
+		if(a==null && b==null)
+			return null;
+		if(a==null)
+			return b;
+		if(b==null)
+			return a;
+		int m = a.length;
+		int n = b.length;
+		if(m>1)
+			for(int i=1,j;i<a.length;i++) if(a[i]<a[i-1]) return null;
+		if(n>1)
+			for(int i=1,j;i<b.length;i++) if(b[i]<b[i-1]) return null;
+		
+		int k = m+n;
+		int[] merged = new int[k];
+		
+		int i,j,idx; 
+		i=j=idx=0;
+		
+		while(i<m && j<n)
+		{
+			if(a[i]<b[j])
+				merged[idx++]=a[i++];
+			else if(a[i]>b[j])
+				merged[idx++]=b[j++];			
+		}
+		if(i<k)
+			while(i<m)
+				merged[idx++]=a[i++];
+		if(j<k)
+			while(j<n)
+				merged[idx++]=b[j++];
+		
+		return merged;
+	}
 }
