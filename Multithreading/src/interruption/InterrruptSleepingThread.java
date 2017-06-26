@@ -19,7 +19,7 @@ public class InterrruptSleepingThread {
 					} catch (InterruptedException e) {
 						
 						e.printStackTrace();
-//						Thread.currentThread().interrupt();
+						Thread.currentThread().interrupt();
 					}
 					list.add(Thread.currentThread().getName()+":elem"+counter);
 					

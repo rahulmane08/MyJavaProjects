@@ -20,7 +20,7 @@ public class ReentrantLockTest
 			{
 				e.printStackTrace();
 				System.out.println(Thread.currentThread().isInterrupted());
-				Thread.interrupted();
+				
 			}
 			finally 
 			{
@@ -35,6 +35,7 @@ public class ReentrantLockTest
 		t2.start();		
 		Thread.sleep(5*1000);
 		t2.interrupt();
+		System.out.println("t2 interrupted");
 		System.out.println(t2.isInterrupted());
 	}
 }

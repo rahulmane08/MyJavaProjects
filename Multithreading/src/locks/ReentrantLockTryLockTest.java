@@ -49,7 +49,7 @@ public class ReentrantLockTryLockTest
 		t1.start();
 		t2.start();	
 		Thread.sleep(2*1000);
-//		t2.interrupt();
+		t2.interrupt();
 	}
 	
 	public static void handleInterrupts(InterruptedException ie)
