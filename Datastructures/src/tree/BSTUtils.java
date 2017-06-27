@@ -101,24 +101,56 @@ public class BSTUtils
 			
 	}
 	
-	static public int kthSmallest(Node root , int k)
+	static class KthSmallest
 	{
-		if(root==null || TreeUtils.size(root)<k)
-			throw new RuntimeException("root is null or k is greater than size");
-		int current = 0;
-		Stack<Node> s = new Stack<>();
-		while(true)
+		private static int currVisit = 0;
+		
+		private static KthSmallest INSTANCE = new KthSmallest();
+		
+		private KthSmallest(){}
+		
+		public static KthSmallest getInstance()
 		{
-			while(root!=null)
-			{
-				s.push(root);
-				root = root.left;
-			}
-			
-			root = s.pop();
-			if(++current==k)
-				return root.data;
-			root = root.right;
+			currVisit=0;
+			return INSTANCE;
+		}
+		public Node kthSmallest(Node root, int k)
+		{
+			if(root==null)
+				return null;
+			Node left = kthSmallest(root.left, k);
+			if(left!=null)
+				return left;
+			if(k==++currVisit)
+				return root;		
+			return kthSmallest(root.right, k);
+		}
+	}
+	
+	static class KthLargest
+	{
+		private static int currVisit = 0;
+		
+		private static KthLargest INSTANCE = new KthLargest();
+		
+		private KthLargest(){}
+		
+		public static KthLargest getInstance()
+		{
+			currVisit=0;
+			return INSTANCE;
+		}
+		
+		public Node kthLargest(Node root, int k)
+		{
+			if(root==null)
+				return null;
+			Node right = kthLargest(root.right, k);
+			if(right!=null)
+				return right;
+			if(k==++currVisit)
+				return root;		
+			return kthLargest(root.left, k);
 		}
 	}
 	static public Node createBalancedBST(int[] sortedArr)
