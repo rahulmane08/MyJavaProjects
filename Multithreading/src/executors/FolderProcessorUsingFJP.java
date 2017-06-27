@@ -62,7 +62,7 @@ public class FolderProcessorUsingFJP
 	public static void main(String[] args) 
 	{
 		ForkJoinPool pool = new ForkJoinPool(20);
-		FolderProcessor mainTask = new FolderProcessor("/home/rahul/git/MyJavaProjects", "java");
+		FolderProcessor mainTask = new FolderProcessor("/home/rahul/MyGoogleDrive/preps", "java");
 		pool.execute(mainTask);
 		do{
 			System.out.printf("Parallelism=%d \nActive Threads=%d \nTask count=%d \nSteal count=%d"

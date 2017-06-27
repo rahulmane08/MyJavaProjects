@@ -5,7 +5,7 @@ import java.util.Stack;
 public class Test {
 	public static void main(String[] args) 
 	{
-		BinarySearchTree bst = new BinarySearchTree();
+		/*BinarySearchTree bst = new BinarySearchTree();
 		bst.insert(bst.root, 10);
 		System.out.println(bst.root);
 		bst.insert(bst.root, 20);
@@ -55,8 +55,8 @@ public class Test {
 		TreeUtils.Traversals.levelOrderSpiralTraversal(bt.root,true);
 		System.out.println("height recursive = "+TreeUtils.heightRecursive(bt.root));
 		System.out.println("height iterative = "+TreeUtils.heightInterative(bt.root));
-		/*TreeUtils.deleteTree(bt.root);
-		TreeUtils.Traversals.levelOrderTraversal(bt.root);*/
+		TreeUtils.deleteTree(bt.root);
+		TreeUtils.Traversals.levelOrderTraversal(bt.root);
 		System.out.println("Total leaf nodes = "+TreeUtils.countLeafNodes(bt.root));
 		System.out.println("identical test = " + TreeUtils.areTreesIdentical(bt.root, bt1.root));
 		
@@ -93,10 +93,10 @@ public class Test {
 		System.out.println("LCA of 4,7 : " + TreeUtils.lca(bt.root, 4, 7));
 		
 		//create tree using inorder and preorder
-		/*Integer[] inorder = new Integer[]{4,2,5,1,6,3};
+		Integer[] inorder = new Integer[]{4,2,5,1,6,3};
 		Integer[] preorder = new Integer[]{1,2,4,5,3,6};
 		Node newTree = TreeUtils.createTreeUsingPreAndInorderSequences(inorder, preorder, 0, preorder.length-1);
-		TreeUtils.Traversals.levelOrderTraversal(newTree);*/
+		TreeUtils.Traversals.levelOrderTraversal(newTree);
 		
 		bt = new BinaryTree();
 		bt.insert(1);		
@@ -110,8 +110,19 @@ public class Test {
 		
 		TreeUtils.fillNextSiblings(bt.root);
 		TreeUtils.Traversals.levelOrderTraversal(bt.root);
-		TreeUtils.printVerticalSum(bt.root);
+		TreeUtils.printVerticalSum(bt.root);*/
 		
+		BinaryTree bt = new BinaryTree();
+		bt.insert(1);		
+		bt.insert(2);
+		bt.insert(3);
+		bt.insert(4);
+		bt.insert(5);
+		bt.insert(6);
+		bt.insert(7);
+		TreeUtils.Traversals.levelOrderTraversal(bt.root);
+		TreeUtils.createMirror(bt.root);
+		TreeUtils.Traversals.levelOrderTraversal(bt.root);
 		
 	}
 }

@@ -27,6 +27,7 @@ public class CyclicBarrierTest {
 					try {
 						Thread.sleep(2000);
 						barrier.await();
+						System.out.println(currentThreadname+" is now executing");
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -34,7 +35,7 @@ public class CyclicBarrierTest {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println(currentThreadname+" crossed barrier");
+					
 					
 				}
 			}).start();
