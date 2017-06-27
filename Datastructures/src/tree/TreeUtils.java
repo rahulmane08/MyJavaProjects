@@ -376,6 +376,19 @@ public class TreeUtils
 				);
 	}
 	
+	public static void createMirror(Node root)
+	{
+		if(root==null)
+			return;
+		Node left = root.left;
+		Node right = root.right;
+		root.left = right;
+		root.right = left;
+		createMirror(left);
+		createMirror(right);
+		
+	}
+	
 	public static void depthOfEachNode(Node root)
 	{
 		if(root==null)
