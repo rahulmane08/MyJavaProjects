@@ -1,3 +1,5 @@
+package backtracking;
+
 /**
  *  1) Start in the leftmost column
 	2) If all queens are placed
@@ -51,7 +53,7 @@ public class NQueens {
 		for(int i=row,j=col;i>=0 && j>=0;i--,j--)
 			if(board[i][j]==1)
 				return false;
-		for(int i=row,j=col;i<=N && j>=0;i++,j--)
+		for(int i=row,j=col;i<N && j>=0;i++,j--)
 			if(board[i][j]==1)
 				return false;
 		return true;
@@ -61,8 +63,11 @@ public class NQueens {
 	{
 		if(solve(0))
 		{
-			
+			System.out.println("Solution:");
+			Print2DArray.print(board, N, N);
 		}
+		else
+			System.out.println("Solution not possible");
 	}
 	
 	private boolean solve(int column)
@@ -74,15 +79,21 @@ public class NQueens {
 			for(int i=0;i<N;i++)
 			{
 				if(isSafe(i, column))
+				{
 					board[i][column]=1;
-				
-				if(solve(column+1))
-					return true;
-				
-				board[i][column]=0;
+					
+					if(solve(column+1))
+						return true;
+					
+					board[i][column]=0;
+				}				
 			}
 		}
 		return false;
 	}
-	
+	public static void main(String[] args) 
+	{
+		NQueens n = new NQueens(4);
+		n.solve();
+	}
 }
