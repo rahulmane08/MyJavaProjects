@@ -10,21 +10,19 @@ public class GraphUtils
 {
 	static public <T> void bfs(Graph<T> graph, T start)
 	{
-		if(graph==null)
-			return;	
-	
-		ListNode<T> head = new ListNode<T>(start); 
-		list.LinkedList<T> edges = graph.getConnectedNodes(head);
-		if(edges==null)
+		
+		if(!check(graph, start))
 			return;
 		
 		HashSet<ListNode<T>> visited = new HashSet<>();
 		Queue<ListNode<T>> queue = new LinkedList<>();
-		queue.offer(head);	
-		visited.add(head);
+		ListNode<T> curr = new ListNode<T>(start);
+		queue.offer(curr);	
+		visited.add(curr);
+		
 		while(!queue.isEmpty())
 		{
-			ListNode<T> curr = queue.poll();	
+			curr = queue.poll();	
 			System.out.println(curr);
 			list.LinkedList<T> currList = graph.getConnectedNodes(curr);
 			
@@ -37,6 +35,44 @@ public class GraphUtils
 				}
 			}
 				
+		}
+	}
+	
+	static private <T> boolean check(Graph<T> graph, T start)
+	{
+		if(graph==null)
+			return false;	
+	
+		ListNode<T> head = new ListNode<T>(start); 
+		list.LinkedList<T> edges = graph.getConnectedNodes(head);
+		if(edges==null)
+			return false;
+		return true;
+	}
+	
+	static public <T> void dfs(Graph<T> graph)
+	{
+		if(graph==null)
+			return;
+		HashSet<ListNode<T>> visited = new HashSet<>();		
+		for(ListNode<T> vertex : graph.getVertices())
+			if(!visited.contains(vertex))
+				dfsUtil(graph, vertex, visited);
+	}
+	
+	static private <T> void dfsUtil(Graph<T> graph, ListNode<T> start, HashSet<ListNode<T>> visited)
+	{
+		System.out.println(start);
+		visited.add(start);
+		
+		list.LinkedList<T> currList = graph.getConnectedNodes(start);
+		for(ListNode<T> temp = currList.start;temp!=null;temp=temp.next)
+		{				
+			if(!visited.contains(temp))
+			{
+				visited.add(temp);
+				dfsUtil(graph, temp, visited);
+			}
 		}
 	}
 }
