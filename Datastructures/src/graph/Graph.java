@@ -5,35 +5,41 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import list.LinkedList;
+import list.ListNode;
 
 public class Graph<T>
 {	
 	
-	private final Map<T, LinkedList<T>> map;
+	private final Map<ListNode<T>, LinkedList<T>> map;
 	private final int count;
 	public Graph(T[] vertices)
 	{
 		count=vertices.length;
 		map = new HashMap<>();
 		for(int i=0;i<count;i++)
-			map.put(vertices[i], new LinkedList<>());
+			map.put(new ListNode<>(vertices[i]), new LinkedList<>());
 	}
 	
 	public void addEdge(T source , T dest)
 	{
 		//undirected graph, add from source to dest
-		LinkedList<T> list = map.get(source);
+		LinkedList<T> list = map.get(new ListNode<T>(source));
 		list.insert(dest);
 		
 		//also add edge from dest to source
-		list = map.get(dest);
+		list = map.get(new ListNode<T>(dest));
 		list.insert(source);
-	}	
+	}
+	
+	public LinkedList<T> getConnectedNodes(ListNode<T> data)
+	{
+		return map.get(data);
+	}
 	
 	@Override
 	public String toString() {
 		String s = "";
-		for(Entry<T, LinkedList<T>> entry: map.entrySet())
+		for(Entry<ListNode<T>, LinkedList<T>> entry: map.entrySet())
 			s += "Vertex:"+entry.getKey()+", connects to "+entry.getValue()+"\n";
 		return s;
 	}
