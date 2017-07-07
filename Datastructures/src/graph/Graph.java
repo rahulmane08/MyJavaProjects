@@ -1,63 +1,71 @@
 package graph;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import list.LinkedList;
-import list.ListNode;
-
-public class Graph<T>
-{	
-	
-	private final Map<ListNode<T>, LinkedList<T>> map;
-	private final int count;
-	private final boolean directed;
-	public Graph(T[] vertices, boolean directed)
-	{
-		count=vertices.length;
-		map = new HashMap<>();
-		for(int i=0;i<count;i++)
-			map.put(new ListNode<>(vertices[i]), new LinkedList<>());
-		this.directed=directed;
+public class Graph<T> 
+{
+	private List<Edge<T>> allEdges;
+	boolean isDirected = false;
+	private Map<Long,Vertex<T>> allVertexes;
+	public Graph(boolean isDirected) {
+		super();
+		this.isDirected = isDirected;
+		this.allEdges = new ArrayList<>();
+		this.allVertexes = new HashMap<>();
 	}
 	
-	public void addEdge(T source , T dest)
+	public void addEdge(long id1, long id2, int weight)
 	{
-		//undirected graph, add from source to dest
-		LinkedList<T> list = map.get(new ListNode<T>(source));
-		list.insert(dest);
-		
-		//also add edge from dest to source
-		if(!directed)
+		Vertex<T> v1 = allVertexes.get(id1);
+		Vertex<T> v2 = allVertexes.get(id2);
+		if(v1==null)
 		{
-			list = map.get(new ListNode<T>(dest));
-			list.insert(source);
+			v1 = new Vertex<>(id1);
+			allVertexes.put(id1, v1);
+		}
+		if(v2==null)
+		{
+			v2 = new Vertex<>(id2);
+			allVertexes.put(id2, v2);
 		}
 		
+		Edge<T> edge = new Edge<>(v1, v2, isDirected, weight);
+		v1.addAdjacentVertex(edge, v2);		
+		if(!isDirected)
+			v2.addAdjacentVertex(edge, v1);
+		allEdges.add(edge);
 	}
 	
-	public LinkedList<T> getConnectedNodes(ListNode<T> data)
+	public void addVertex(Vertex<T> vertex)
 	{
-		return map.get(data);
+		if(allVertexes.containsKey(vertex.getId()))
+			return;
+		allVertexes.put(vertex.getId(), vertex);
+		if(vertex.getEdges()!=null && vertex.getEdges().size()>0)
+			for(Edge<T> edge: vertex.getEdges())
+				allEdges.add(edge);
 	}
 	
-	@Override
-	public String toString() {
-		String s = "";
-		for(Entry<ListNode<T>, LinkedList<T>> entry: map.entrySet())
-			s += "Vertex:"+entry.getKey()+", connects to "+entry.getValue()+"\n";
-		return s;
-	}
-	
-	public ListNode<T>[] getVertices()
+	public Vertex<T> getVertex(long id)
 	{
-		ListNode<T>[] arr = new ListNode[map.size()];
-		int index = 0;
-		for(ListNode<T> vertex: map.keySet())
-		{
-			arr[index++] = vertex;
-		}
-		return arr;
+		return allVertexes.get(id);
 	}
+
+	public List<Edge<T>> getAllEdges() {
+		return allEdges;
+	}
+
+	public boolean isDirected() {
+		return isDirected;
+	}
+
+	public Collection<Vertex<T>> getAllVertexes() {
+		return allVertexes.values();
+	}
+	
+	
 }
