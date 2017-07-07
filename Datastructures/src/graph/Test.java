@@ -1,7 +1,7 @@
 
 package graph;
 
-import graph2.traversal.GraphTraversal;
+import graph.traversal.GraphTraversal;
 
 public class Test 
 {
