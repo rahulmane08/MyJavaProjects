@@ -15,10 +15,10 @@ public class KosarajuStronglyConnectedComponent {
 		HashSet<Long> visited = new HashSet<>();
 		Stack<Vertex<T>> stack = new Stack<>();
 		
-		//insert into the stack by the visit times.
+		//insert into the stack by the visit times. TOPOLOGICAL SORT
 		for(Vertex<T> vertex:graph.getAllVertexes())
 			if(!visited.contains(vertex.getId()))
-				DFSUtil(vertex, visited, stack);
+				TopologicalSort.topologicalSortUtil(vertex, visited, stack);
 		
 		//transpose the graph
 		Graph<T> graphT = GraphUtils.transpose(graph);
@@ -32,7 +32,8 @@ public class KosarajuStronglyConnectedComponent {
 		//pop each element from stack , the ones with highest visit times will be at the top, and then do DFS in the transpose
 		while(!stack.isEmpty())
 		{
-			Vertex<T> vertex = stack.pop();
+			//get the vertex from the transposed graph
+			Vertex<T> vertex = graphT.getVertex(stack.pop().getId());
 			Set<Vertex<T>> set = new HashSet<>();
 			if(!visited.contains(vertex.getId()))
 				DFSUtilForTranspose(vertex, visited, set);			
@@ -44,14 +45,7 @@ public class KosarajuStronglyConnectedComponent {
 			System.out.println(set);
 	}
 	
-	private static <T> void DFSUtil(Vertex<T> vertex, HashSet<Long> visited, Stack<Vertex<T>> stack)
-	{
-		visited.add(vertex.getId());
-		for(Vertex<T> adjVertex: vertex.getAdjacentVertexes())
-			if(!visited.contains(adjVertex.getId()))
-				DFSUtil(adjVertex, visited, stack);
-		stack.push(vertex);
-	}
+	
 	private static <T> void DFSUtilForTranspose(Vertex<T> vertex, HashSet<Long> visited, Set<Vertex<T>> set)
 	{
 		visited.add(vertex.getId());
