@@ -27,9 +27,16 @@ public class LruCacheTest
 {
 	public static void main(String[] args) {
 		LruCache cache = new LruCache(10);
-		for(int i=0;i<30;i++)
-		{
+		
+		for(int i=0;i<10;i++)
 			cache.put("key"+i, "value"+i);
+		
+		for(int i=0;i<6;i++)
+			cache.get("key"+i);
+		
+		for(int i=10;i<30;i++)
+		{
+			cache.put("key"+i, "value"+i);			
 			System.out.println(cache.keySet());
 		}
 	}
