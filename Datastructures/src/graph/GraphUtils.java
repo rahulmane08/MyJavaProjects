@@ -12,7 +12,5 @@ public class GraphUtils
 		for(Edge<T> edge:graph.getAllEdges())
 			graph.addEdge(edge.getVertex2().getId(), edge.getVertex1().getId(), edge.getWeight());
 		return transpose;				
-	}
-	
-	
+	}	
 }

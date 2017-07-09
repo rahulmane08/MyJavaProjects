@@ -1,6 +1,8 @@
 
 package graph;
 
+import graph.cycledetection.CycleDetectionInDG;
+import graph.cycledetection.HamiltonianCycleDetector;
 import graph.traversal.GraphTraversal;
 
 public class Test 
@@ -37,7 +39,16 @@ public class Test
 		GraphTraversal.dfs(graph);
 		
 		
-		graph = new Graph<>(false);
+		graph = createGraph(false);		
+		HamiltonianCycleDetector.printHamiltonianCycle(graph);
+		
+		graph = createGraph(true);	
+		CycleDetectionInDG.detectCycleInDG(graph);
+	}
+
+	private static Graph<String> createGraph(boolean directed) {
+		Graph<String> graph;
+		graph = new Graph<>(directed);
 		Vertex<String> A = new Vertex<>(1);
 		Vertex<String> B = new Vertex<>(2);
 		Vertex<String> C = new Vertex<>(3);
@@ -52,7 +63,6 @@ public class Test
 		graph.addEdge(B, C, 1);
 		graph.addEdge(C, D, 1);
 		graph.addEdge(D, A, 1);
-		
-		HamiltonianCycleDetector.printHamiltonianCycle(graph);
+		return graph;
 	}
 }

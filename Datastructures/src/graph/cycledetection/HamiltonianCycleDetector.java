@@ -1,8 +1,11 @@
-package graph;
+package graph.cycledetection;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import graph.Graph;
+import graph.Vertex;
 
 public class HamiltonianCycleDetector 
 {
@@ -35,7 +38,7 @@ public class HamiltonianCycleDetector
 				if(start.equals(adjVertex) && totalVertexes==result.size())
 					return true;
 				
-				if(!visited.contains(adjVertex.id) && hasHamiltonianCycle(start, adjVertex, totalVertexes, visited, result))
+				if(!visited.contains(adjVertex.getId()) && hasHamiltonianCycle(start, adjVertex, totalVertexes, visited, result))
 					return true;
 					
 			}
