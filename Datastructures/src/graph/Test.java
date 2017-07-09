@@ -35,5 +35,24 @@ public class Test
 		
 		GraphTraversal.bfs(graph);
 		GraphTraversal.dfs(graph);
+		
+		
+		graph = new Graph<>(false);
+		Vertex<String> A = new Vertex<>(1);
+		Vertex<String> B = new Vertex<>(2);
+		Vertex<String> C = new Vertex<>(3);
+		Vertex<String> D = new Vertex<>(4);
+		
+		A.setData("A");
+		B.setData("B");
+		C.setData("C");
+		D.setData("D");
+		
+		graph.addEdge(A, B, 1);
+		graph.addEdge(B, C, 1);
+		graph.addEdge(C, D, 1);
+		graph.addEdge(D, A, 1);
+		
+		HamiltonianCycleDetector.printHamiltonianCycle(graph);
 	}
 }

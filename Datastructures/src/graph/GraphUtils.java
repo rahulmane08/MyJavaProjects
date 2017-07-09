@@ -13,4 +13,6 @@ public class GraphUtils
 			graph.addEdge(edge.getVertex2().getId(), edge.getVertex1().getId(), edge.getWeight());
 		return transpose;				
 	}
+	
+	
 }

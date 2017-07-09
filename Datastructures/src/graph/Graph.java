@@ -66,6 +66,10 @@ public class Graph<T>
 	public Collection<Vertex<T>> getAllVertexes() {
 		return allVertexes.values();
 	}
+
+	public void addEdge(Vertex<String> a, Vertex<String> b, int weight) {
+		addEdge(a.id, b.id, weight);		
+	}
 	
 	
 }
