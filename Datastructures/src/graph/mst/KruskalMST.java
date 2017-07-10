@@ -14,14 +14,7 @@ import graph.DisjointSet.Node;
 public class KruskalMST 
 {
 	
-	static private Comparator<Edge> weightComparator = new Comparator<Edge>() {		
-		@Override
-		public int compare(Edge o1, Edge o2) {
-			Integer w1 = o1.getWeight();
-			Integer w2 = o2.getWeight();
-			return w1.compareTo(w2);
-		}
-	};
+	static private Comparator<Edge> weightComparator = new WeightComparator();
 	static public <T> void printMST(Graph<T> graph)
 	{
 		List<Edge<T>> mstEdges = getMST(graph);
