@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class DisjointSet<T> 
 {
-	class Node<T> 
+	static public class Node<T> 
 	{
 		T data;
 		int rank;

@@ -67,7 +67,9 @@ public class Graph<T>
 		return allVertexes.values();
 	}
 
-	public void addEdge(Vertex<String> a, Vertex<String> b, int weight) {
+	public void addEdge(Vertex<T> a, Vertex<T> b, int weight) {
+		allVertexes.put(a.id, a);
+		allVertexes.put(b.id, b);
 		addEdge(a.id, b.id, weight);		
 	}
 	

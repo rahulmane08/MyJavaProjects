@@ -24,15 +24,15 @@ public class Edge<T>{
         this.isDirected = isDirected;
     }
     
-    Vertex<T> getVertex1(){
+    public Vertex<T> getVertex1(){
         return vertex1;
     }
     
-    Vertex<T> getVertex2(){
+    public Vertex<T> getVertex2(){
         return vertex2;
     }
     
-    int getWeight(){
+    public int getWeight(){
         return weight;
     }
     
@@ -73,7 +73,6 @@ public class Edge<T>{
 
     @Override
     public String toString() {
-        return "Edge [isDirected=" + isDirected + ", vertex1=" + vertex1
-                + ", vertex2=" + vertex2 + ", weight=" + weight + "]";
+        return "Edge [vertex1=" + vertex1.getData()+ ", vertex2=" + vertex2.getData() + ", weight=" + weight + "]";
     }
 }

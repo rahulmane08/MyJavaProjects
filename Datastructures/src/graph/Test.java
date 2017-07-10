@@ -1,8 +1,9 @@
 
 package graph;
 
-import graph.cycledetection.CycleDetectionInDG;
+import graph.cycledetection.CycleDetection;
 import graph.cycledetection.HamiltonianCycleDetector;
+import graph.mst.KruskalMST;
 import graph.traversal.GraphTraversal;
 
 public class Test 
@@ -43,7 +44,13 @@ public class Test
 		HamiltonianCycleDetector.printHamiltonianCycle(graph);
 		
 		graph = createGraph(true);	
-		CycleDetectionInDG.detectCycleInDG(graph);
+		CycleDetection.detectCycle(graph);
+		
+		graph = createGraph(false);	
+		CycleDetection.detectCycle(graph);
+		
+		graph = createWeightedGraph(false);
+		KruskalMST.printMST(graph);
 	}
 
 	private static Graph<String> createGraph(boolean directed) {
@@ -63,6 +70,35 @@ public class Test
 		graph.addEdge(B, C, 1);
 		graph.addEdge(C, D, 1);
 		graph.addEdge(D, A, 1);
+		return graph;
+	}
+	
+	private static Graph<String> createWeightedGraph(boolean directed) {
+		Graph<String> graph;
+		graph = new Graph<>(directed);
+		Vertex<String> A = new Vertex<>(1);
+		Vertex<String> B = new Vertex<>(2);
+		Vertex<String> C = new Vertex<>(3);
+		Vertex<String> D = new Vertex<>(4);
+		Vertex<String> E = new Vertex<>(5);
+		Vertex<String> F = new Vertex<>(6);
+		
+		A.setData("A");
+		B.setData("B");
+		C.setData("C");
+		D.setData("D");
+		E.setData("E");
+		F.setData("F");
+		
+		graph.addEdge(A, B, 3);
+		graph.addEdge(A, D, 1);
+		graph.addEdge(B, D, 3);
+		graph.addEdge(B, C, 1);
+		graph.addEdge(C, D, 1);
+		graph.addEdge(C, E, 5);
+		graph.addEdge(C, F, 4);
+		graph.addEdge(D, E, 6);
+		graph.addEdge(E, F, 2);
 		return graph;
 	}
 }

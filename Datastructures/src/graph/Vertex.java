@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex<T> {
-    long id;
+    final long id;
     private T data;
     private List<Edge<T>> edges = new ArrayList<>();
     private List<Vertex<T>> adjacentVertex = new ArrayList<>();
