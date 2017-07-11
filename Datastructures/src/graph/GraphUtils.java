@@ -52,4 +52,34 @@ public class GraphUtils
 		}
 		return false;
 	}
+	
+	static public <T> void printAllPaths(Graph<T> graph, Vertex<T> source, Vertex<T> dest)
+	{
+		if(graph==null)
+			return;		
+		
+		printAllPathsUtil(graph, source, dest, new LinkedHashSet<>());
+	}
+	
+	static private <T> void printAllPathsUtil(Graph<T> graph, Vertex<T> source, Vertex<T> dest,HashSet<Long> visited)
+	{			
+		visited.add(source.getId());
+		if(source.equals(dest))
+		{
+			System.out.print("Found a path ");
+			visited.forEach(v->{
+				System.out.print(graph.getVertex(v)+" ");
+			});
+			System.out.println();
+		}
+		else
+		{
+			
+			List<Vertex<T>> adjacentVertexes = source.getAdjacentVertexes();		
+			for(Vertex<T> adj:adjacentVertexes)
+				if(!visited.contains(adj.getId()))
+					printAllPathsUtil(graph, adj, dest, visited);
+		}
+		visited.remove(source.getId());			
+	}
 }
