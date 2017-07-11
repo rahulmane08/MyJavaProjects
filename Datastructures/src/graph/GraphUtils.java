@@ -31,4 +31,25 @@ public class GraphUtils
 		
 		return false;		
 	}
+	/**
+	 * 1. check if no cycles
+	 * 2. start from vertex and check if all vertices are traced.
+	 * @param graph
+	 * @return
+	 */
+	static public <T> boolean checkIfGraphIsTree(Graph<T> graph)
+	{
+		if(graph!=null)
+		{
+			boolean cyclePresent = CycleDetection.detectCycle(graph);
+			if(cyclePresent)
+				return false;
+			HashSet<Long> visited = new HashSet<>();
+			Vertex<T> start = graph.getAllVertexes().iterator().next();
+			GraphTraversal.dfsUtil(start, visited);
+			return visited.size()==graph.getAllVertexes().size();
+			
+		}
+		return false;
+	}
 }
