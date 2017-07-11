@@ -11,16 +11,16 @@ import graph.Vertex;
 
 public class CycleDetection {
 	
-	static public <T> void detectCycle(Graph<T> graph)
+	static public <T> boolean detectCycle(Graph<T> graph)
 	{
 		if(graph==null)
-			return;
+			return false;
 		if(graph.isDirected())
-			detectCycleInDG(graph);
+			return detectCycleInDG(graph);
 		else
-			detectCycleInUDG(graph);
+			return detectCycleInUDG(graph);
 	}
-	static private <T> void detectCycleInDG(Graph<T> graph)
+	static private <T> boolean detectCycleInDG(Graph<T> graph)
 	{
 		HashSet<Long> visited = new HashSet<>();
 		Stack<Vertex<T>> stack = new Stack<>();
@@ -28,10 +28,11 @@ public class CycleDetection {
 			if(detectCycleInDG(curr, visited, stack))
 			{
 				System.out.println("Cycle detected");
-				return;
+				return true;
 			}
 				
 		System.out.println("No cycles detected");
+		return false;
 	}
 	
 	static private <T> boolean detectCycleInDG(Vertex<T> vertex, HashSet<Long> visited, Stack<Vertex<T>> stack)
@@ -47,7 +48,7 @@ public class CycleDetection {
 		return false;		
 	}
 	
-	static private <T> void detectCycleInUDG(Graph<T> graph)
+	static private <T> boolean detectCycleInUDG(Graph<T> graph)
 	{
 		DisjointSet<Long> set = new DisjointSet<>();
 		for(Vertex<T> v: graph.getAllVertexes())
@@ -64,11 +65,12 @@ public class CycleDetection {
 			if(r1.equals(r2))
 			{
 				System.out.println("Cycle detected");
-				return;
+				return true;
 			}
 			
 			set.union(v1.getId(), v2.getId());
 		}
 		System.out.println("No cycle detected");
+		return false;
 	}
 }
