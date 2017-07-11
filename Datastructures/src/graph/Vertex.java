@@ -8,12 +8,41 @@ public class Vertex<T> {
     private T data;
     private List<Edge<T>> edges = new ArrayList<>();
     private List<Vertex<T>> adjacentVertex = new ArrayList<>();
+    private int inDegree=0;
+    private int outDegree=0;
+    
     
     Vertex(long id){
         this.id = id;
     }
     
-    public long getId(){
+    public void incrementInDegree()
+    {
+    	++inDegree;
+    }
+    public void incrementOutDegree()
+    {
+    	++outDegree;
+    }
+    
+    public void decrementInDegree()
+    {
+    	--inDegree;
+    }
+    public void decrementOutDegree()
+    {
+    	--outDegree;
+    }
+    
+    public int getInDegree() {
+		return inDegree;
+	}
+
+	public int getOutDegree() {
+		return outDegree;
+	}
+
+	public long getId(){
         return id;
     }
     
@@ -27,6 +56,8 @@ public class Vertex<T> {
     
     public void addAdjacentVertex(Edge<T> e, Vertex<T> v){
         edges.add(e);
+        this.incrementOutDegree();
+        v.incrementInDegree();
         adjacentVertex.add(v);
     }
     
