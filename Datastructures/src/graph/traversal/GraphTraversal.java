@@ -53,7 +53,7 @@ public class GraphTraversal
 				
 	}
 	
-	static private <T> void dfsUtil(Vertex<T> vertex,HashSet<Long> visited)
+	static public <T> void dfsUtil(Vertex<T> vertex,HashSet<Long> visited)
 	{
 		visited.add(vertex.getId());
 		System.out.println(vertex.getData());
