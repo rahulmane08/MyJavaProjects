@@ -51,6 +51,9 @@ public class Test
 		
 		graph = createWeightedGraph(false);
 		KruskalMST.printMST(graph);
+		
+//		TarjanArticulationPoint tp = new TarjanArticulationPoint();
+//		System.out.println("Articulation points = "+tp.getArticulationPoints(graph));
 	}
 
 	private static Graph<String> createGraph(boolean directed) {

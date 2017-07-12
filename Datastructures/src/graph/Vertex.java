@@ -12,7 +12,7 @@ public class Vertex<T> {
     private int outDegree=0;
     
     
-    Vertex(long id){
+    public Vertex(long id){
         this.id = id;
     }
     
@@ -62,7 +62,7 @@ public class Vertex<T> {
     }
     
     public String toString(){
-        return String.valueOf(id);
+        return String.valueOf(data);
     }
     
     public List<Vertex<T>> getAdjacentVertexes(){
