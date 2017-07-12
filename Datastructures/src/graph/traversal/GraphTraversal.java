@@ -41,16 +41,16 @@ public class GraphTraversal
 		}
 	}
 	
-	static public <T> void dfs(Graph<T> graph)
+	static public <T> HashSet<Long> dfs(Graph<T> graph)
 	{
 		if(graph==null)
-			return;
+			return null;
 		System.out.println("DFS Traversal============");
 		HashSet<Long> visited = new HashSet<>();
 		for(Vertex<T> vertex: graph.getAllVertexes())
 			if(!visited.contains(vertex.getId()))
 				dfsUtil(vertex, visited);
-				
+		return visited;		
 	}
 	
 	static public <T> void dfsUtil(Vertex<T> vertex,HashSet<Long> visited)
