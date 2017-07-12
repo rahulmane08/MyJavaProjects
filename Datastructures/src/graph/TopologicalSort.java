@@ -14,10 +14,10 @@ public class TopologicalSort
 		stack.push(vertex);
 	}
 	
-	public static <T> void topSort(Graph<T> graph)
+	public static <T> Stack<Vertex<T>> topSort(Graph<T> graph)
 	{
 		if(graph==null)
-			return;
+			return null;
 		HashSet<Long> visited = new HashSet<>();
 		Stack<Vertex<T>> stack = new Stack<>();
 		//insert into the stack by the visit times. TOPOLOGICAL SORT
@@ -25,10 +25,7 @@ public class TopologicalSort
 			if(!visited.contains(vertex.getId()))
 				topologicalSortUtil(vertex, visited, stack);
 		
-		System.out.println("topological sort");
-		while(!stack.isEmpty())
-		{
-			System.out.println(stack.pop());
-		}
+		System.out.println("topological sort = "+stack);
+		return stack;
 	}
 }
