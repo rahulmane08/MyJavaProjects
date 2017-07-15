@@ -14,10 +14,15 @@ public class TopologicalSort
 		stack.push(vertex);
 	}
 	
-	public static <T> void topSort(Graph<T> graph)
+	public static <T> Stack<Vertex<T>> topSort(Graph<T> graph)
 	{
+<<<<<<< HEAD
 		if(graph==null || !graph.isDirected)
 			return;
+=======
+		if(graph==null)
+			return null;
+>>>>>>> branch 'master' of https://github.com/rahulmane08/MyJavaProjects.git
 		HashSet<Long> visited = new HashSet<>();
 		Stack<Vertex<T>> stack = new Stack<>();
 		//insert into the stack by the visit times. TOPOLOGICAL SORT
@@ -25,11 +30,16 @@ public class TopologicalSort
 			if(!visited.contains(vertex.getId()))
 				topologicalSortUtil(vertex, visited, stack);
 		
+<<<<<<< HEAD
 		System.out.println("topological sort");
 		while(!stack.isEmpty())
 		{
 			System.out.println(stack.pop().getData());
 		}
+=======
+		System.out.println("topological sort = "+stack);
+		return stack;
+>>>>>>> branch 'master' of https://github.com/rahulmane08/MyJavaProjects.git
 	}
 	
 	public static <T> void allTopSortPaths(Graph<T> graph)

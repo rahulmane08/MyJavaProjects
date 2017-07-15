@@ -41,16 +41,16 @@ public class GraphTraversal
 		}
 	}
 	
-	static public <T> void dfs(Graph<T> graph)
+	static public <T> HashSet<Long> dfs(Graph<T> graph)
 	{
 		if(graph==null)
-			return;
+			return null;
 		System.out.println("DFS Traversal============");
 		HashSet<Long> visited = new HashSet<>();
 		for(Vertex<T> vertex: graph.getAllVertexes())
 			if(!visited.contains(vertex.getId()))
 				dfsUtil(vertex, visited);
-				
+		return visited;		
 	}
 	
 	static public <T> void dfsUtil(Vertex<T> vertex,HashSet<Long> visited)
@@ -60,5 +60,30 @@ public class GraphTraversal
 		for(Vertex<T> adjacentVertex: vertex.getAdjacentVertexes())
 			if(!visited.contains(adjacentVertex.getId()))
 				dfsUtil(adjacentVertex, visited);
+	}
+	static public <T> boolean iddfs(Graph<T> graph,Long source, Long dest, int maxDepth)
+	{
+		if(graph==null)
+			return false;
+		if(graph.getVertex(source)==null || graph.getVertex(dest)==null)
+			return false;
+		for(int i=0;i<=maxDepth;i++)
+			if(dfsForMaxDepth(graph, source, dest, i))
+				return true;
+		return false;
+	}
+	
+	static public <T> boolean dfsForMaxDepth(Graph<T> graph,Long source, Long dest, int limit)
+	{
+		if(limit<=0)
+			return false;
+		
+		if(source==dest)
+			return true;
+		
+		for(Vertex<T> v: graph.getVertex(source).getAdjacentVertexes())
+			return dfsForMaxDepth(graph, v.getId(), dest, limit-1);
+		
+		return false;
 	}
 }
