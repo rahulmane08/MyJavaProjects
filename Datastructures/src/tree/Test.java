@@ -1,6 +1,6 @@
 package tree;
 
-import java.util.Stack;
+import tree.TreeUtils.Traversals;
 
 public class Test {
 	public static void main(String[] args) 
@@ -113,16 +113,16 @@ public class Test {
 		TreeUtils.printVerticalSum(bt.root);*/
 		
 		BinaryTree bt = new BinaryTree();
-		bt.insert(1);		
+		bt.insert(50);		
+		bt.insert(8);
 		bt.insert(2);
 		bt.insert(3);
-		bt.insert(4);
 		bt.insert(5);
-		bt.insert(6);
-		bt.insert(7);
-		TreeUtils.Traversals.levelOrderTraversal(bt.root);
-		TreeUtils.createMirror(bt.root);
-		TreeUtils.Traversals.levelOrderTraversal(bt.root);
+		bt.insert(1);
+		bt.insert(30);
+
+		TreeUtils.convertToSumTree(bt.root);
+		Traversals.levelOrderTraversal(bt.root);
 		
 	}
 }

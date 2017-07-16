@@ -37,8 +37,8 @@ public class BSTTest {
 		System.out.println(BSTUtils.isBST(bt.root));
 		System.out.println(BSTUtils.isBST1(bt.root));
 		
-		System.out.println(BSTUtils.kthSmallest(bst.root, 11));
-		System.out.println(BSTUtils.KthSmallest.kthSmallest(bst.root, 10));
+		
+		System.out.println(BSTUtils.KthSmallest1.kthSmallest(bst.root, 10));
 		
 		
 		 

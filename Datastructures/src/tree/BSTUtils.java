@@ -101,6 +101,13 @@ public class BSTUtils
 			
 	}
 	
+	/** 
+	 * do inorder traversal, when stack starts unwinding, check if k = ++currVisit, if yes then current root is kth smallest
+	 * else continue with recursion
+	 * @author rahul
+	 *
+	 */
+	
 	static class KthSmallest
 	{
 		private static int currVisit = 0;
@@ -126,6 +133,7 @@ public class BSTUtils
 			return kthSmallest(root.right, k);
 		}
 	}
+	
 	
 	static class KthLargest
 	{
@@ -268,7 +276,27 @@ public class BSTUtils
 		printRange(root.right, k1, k2);
 	}
 	
-	
+	/**
+	 * 
+	 *   	  50
+           /      \
+         30        70
+        /   \      /  \
+      20    40    60   80 
+
+		The above tree should be modified to following 
+
+              260
+           /      \
+         330        150
+        /   \       /  \
+      350   300    210   80
+      
+      
+	 * @author rahul
+	 *	1. First find the tree sum
+	 *	2. then inorder traversal, from the left most node start setting data = treeSum and follow the recursion with treesum-data
+	 */
 	static class TreeNodesWithSumOfGreaterNodes
 	{
 		static int treeSum;
@@ -363,6 +391,13 @@ public class BSTUtils
 		
 		return true;
 	}
+	
+	/**
+	 * 
+	 * convert to DLL and use start pair finding algo using 2 pointers
+	 * @param root
+	 * @param n
+	 */
 	public static void printNodeSumEqualsN(Node root, int n)
 	{
 		if(root==null)
@@ -387,6 +422,14 @@ public class BSTUtils
 				first = first.right;
 		}
 	}
+	
+	/**
+	 * get inorder[] from the BT
+	 * sort the inorder[]
+	 * fill the BT in inorder using the elements from inorder[] 
+	 * 
+	 * @param root
+	 */
 	static public void toBSTofSameStructure(Node root)
 	{
 		if(root==null)
@@ -395,6 +438,8 @@ public class BSTUtils
 		Arrays.sort(inorderArr);
 		OrderedArrays.getInstance().fillTreeWithInorderArr(root, inorderArr);
 	}
+	
+	
 	public static void printCommonNodes(Node root1, Node root2)
 	{
 		if(root1==null || root2 ==null)

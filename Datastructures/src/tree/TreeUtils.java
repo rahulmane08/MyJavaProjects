@@ -2,6 +2,7 @@ package tree;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -35,15 +36,15 @@ public class TreeUtils
 		}
 		public int[] toPreorderArray(Node root)
 		{
-			int[] inorderArr = new int[TreeUtils.size(root)];
-			fillPreOrderArray(root, inorderArr);			
-			return inorderArr;
+			int[] preOrderArr = new int[TreeUtils.size(root)];
+			fillPreOrderArray(root, preOrderArr);			
+			return preOrderArr;
 		}
 		public int[] toPostorderArray(Node root)
 		{
-			int[] inorderArr = new int[TreeUtils.size(root)];
-			fillPostOrderArray(root, inorderArr);
-			return inorderArr;
+			int[] postOrderArr = new int[TreeUtils.size(root)];
+			fillPostOrderArray(root, postOrderArr);
+			return postOrderArr;
 		}
 		private void fillInOrderArray(Node root, int[] inorderArr)
 		{
@@ -79,6 +80,24 @@ public class TreeUtils
 			root.data = inorder[index++];
 			fillTreeWithInorderArr(root.right,inorder);
 		}
+		
+		public void fillTreeWithPreOrderArr(Node root, int[] inorder)
+		{
+			if(root==null)
+				return;
+			root.data = inorder[index++];
+			fillTreeWithPreOrderArr(root.left,inorder);			
+			fillTreeWithPreOrderArr(root.right,inorder);
+		}
+		public void fillTreeWithPostOrderArr(Node root, int[] inorder)
+		{
+			if(root==null)
+				return;
+			fillTreeWithPostOrderArr(root.left,inorder);			
+			fillTreeWithPostOrderArr(root.right,inorder);
+			root.data = inorder[index++];
+		}
+		
 	}
 	public static class Traversals
 	{
@@ -203,6 +222,13 @@ public class TreeUtils
 			}
 		}
 		
+		/**
+		 * use two stacks: currentLevel, nextLevel
+		 * add root to currentLevel , add its childs to nextLevel
+		 * pop and print from currentLevel and when currentLevel is empty then assign it to nextLevel and reset nextLevel
+		 * @param root
+		 * @param leftToRight
+		 */
 		public static void levelOrderSpiralTraversal(Node root, boolean leftToRight)
 		{
 			System.out.println("===LEVEL ORDER SPIRAL TRAVERSAL===");
@@ -331,6 +357,12 @@ public class TreeUtils
 		return height;
 	}
 	
+	/**
+	 * level ordered traversals
+	 * if the currently popped root is a left increment the count
+	 * @param root
+	 * @return
+	 */
 	public static int countLeafNodes(Node root)
 	{
 		if(root==null)
@@ -341,7 +373,7 @@ public class TreeUtils
 		while(!queue.isEmpty())
 		{
 			Node curr = queue.poll();
-			if(curr.left==null && curr.right==null)
+			if(isLeaf(root))
 				++count;
 			if(curr.left!=null)
 				queue.offer(curr.left);
@@ -389,6 +421,20 @@ public class TreeUtils
 		
 	}
 	
+	public static void image(Node root)
+	{
+		if(root==null)
+			return;
+		
+		image(root.left);
+		image(root.right);
+		
+		Node temp = root.right;
+		root.right = root.left;
+		root.left = temp;
+		
+	}
+	
 	public static void depthOfEachNode(Node root)
 	{
 		if(root==null)
@@ -416,6 +462,15 @@ public class TreeUtils
 		return Math.max(nodesInLongestPath, maxDiameter);	
 	}
 	
+	/**
+	 * level order traversal
+	 * have maxSum,maxLevel,level and currSum
+	 * if marker is reached, reset the currSum, check currSum>maxSum if yes maxSum = currSum, maxLevel = level
+	 * else increment the currSum by current node data and push left and right
+	 * 
+	 * @param root
+	 * @return
+	 */
 	public static int findLevelWithMaxSum(Node root)
 	{		
 		if(root==null)
@@ -453,7 +508,15 @@ public class TreeUtils
 		}
 		return maxLevel;
 	}
-	
+	/**
+	 * maintain a stack of current level path and push current root
+	 * if the current node is leaf print stack
+	 * traverse left and right
+	 * pop the current from the stack before the stack unwinds onto parent node
+	 * 
+	 * @param root
+	 * @param path
+	 */
 	public static void printAllRootToLeafPaths(Node root, Stack<Integer> path)
 	{
 		if(root==null)
@@ -498,20 +561,21 @@ public class TreeUtils
 		return (root.data + sum(root.left) + sum(root.right));
 	}
 
-	public static void image(Node root)
-	{
-		if(root==null)
-			return;
-		
-		image(root.left);
-		image(root.right);
-		
-		Node temp = root.right;
-		root.right = root.left;
-		root.left = temp;
-		
-	}
 	
+	/**
+	 * 
+	 * 1. if either of the two is the parent of other then that node is LCA
+	 * 2. traverse into left tree and assign it to left lca
+	 * 3. traverse into right tree and assign it to right lca
+	 * 4. leftLca==null or rightLca will be null if condition 2 is satisfied
+	 * 5. if both are non null which means from the current root the recursion went down  
+	 * 		and returned the left and right nodes itself,in which case return the current root
+	 * 
+	 * @param root
+	 * @param left
+	 * @param right
+	 * @return
+	 */
 	public static Node lca(Node root, int left, int right)
 	{
 		if(root==null) return null; // Base condition
@@ -537,18 +601,24 @@ public class TreeUtils
 	/**
 	 * Inorder sequence: D B E A F C
 		Preorder sequence: A B D E C F
+		
+		Idea:
+		1. In the normal tree construction using the inorder array we use the mid=start+end/2
+		2. In pre order traversals, it always visits the root first,
+		3. Hence we consult the preorder array to find the current root and find its index in inorder arr
+		4. so instead of mid its the index of element in preorder in inorder arr
 	 * @param inorder
 	 * @param preorder
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public static Node createTreeUsingPreAndInorderSequences(Integer[] inorder, Integer[] preorder, Integer start, Integer end)
+	public static Node createTreeUsingPreAndInorderSequences(Integer[] inorder, Integer[] preorder)
 	{
 		if(inorder==null || preorder==null)
 			return null;
 		int preIndex = 0;
-		return createTreeUsingPreAndInorderSequences(inorder, preorder, start, end, preIndex);
+		return createTreeUsingPreAndInorderSequences(inorder, preorder, 0, inorder.length-1, preIndex);
 	}
 	private static Node createTreeUsingPreAndInorderSequences(Integer[] inorder, Integer[] preorder, Integer start, Integer end, Integer preIndex)
 	{
@@ -591,6 +661,11 @@ public class TreeUtils
 		printAllAncestors(root.right);
 	}
 	
+	/**
+	 * add next pointer to each tree node.
+	 * do LOT and add current popped element.next = queue.peek()
+	 * @param root
+	 */
 	public static void fillNextSiblings(Node root)
 	{
 		if(root==null)
@@ -620,7 +695,12 @@ public class TreeUtils
 			}
 		}
 	}
-		
+	
+	/**
+	 * 
+	 * 
+	 * @param root
+	 */
 	public static void printVerticalSum(Node root)
 	{
 		Map<Integer, Integer> levelSum = new HashMap<>();
@@ -642,6 +722,13 @@ public class TreeUtils
 		computeVerticalSum(root.left, levelSum, level-1);
 		computeVerticalSum(root.right, levelSum, level+1);
 	}
+	
+	/**
+	 * 
+	 * AVL tree check
+	 * @param root
+	 * @return
+	 */
 	public static boolean isHeightBalanced(Node root)
 	{
 		if(root==null)
@@ -730,14 +817,116 @@ public class TreeUtils
 		return checkIfSubtree(mainRoot.left, subRoot) || checkIfSubtree(mainRoot.right, subRoot); 			
 	}
 
+	/**
+			 * 		 50
+		           /     \     
+		         /         \
+		       7             2
+		     / \             /\
+		   /     \          /   \
+		  3        5      1      30
+		  
+		  output:
+					  50
+			        /    \     
+			      /        \
+			    19           31
+			   / \           /  \
+			 /     \       /      \
+			14      5     1       30
+	 * @param root
+	 */
+	
 	public static void convertToSumTree(Node root)
 	{
 		if(root==null)
 			return;
-		int left = TreeUtils.sum(root.left);
-		int right = TreeUtils.sum(root.right);
-		root.data = left + right;
 		convertToSumTree(root.left);
 		convertToSumTree(root.right);
+		int childSum = (root.left!=null?root.left.data:0) 
+						+ (root.right!=null?root.right.data:0);
+		if(root.data<childSum)
+			root.data=childSum;
+		else
+			increment(root,root.data-childSum);
 	}
+	
+	static private void increment(Node root, int delta)
+	{
+		if(root.left!=null)
+		{
+			int nextDelta = Math.abs(root.left.data - delta);
+			root.left.data = delta;
+			increment(root.left,nextDelta);
+		}
+		else if(root.right!=null)
+		{
+			int nextDelta = Math.abs(root.right.data - delta);
+			root.right.data = delta;
+			increment(root.right,nextDelta);
+		}
+	}
+	static public boolean isStrictTree(Node root)
+	{
+		if(root==null)
+			return true;
+		int children = 0;
+		if(root.left!=null)
+			++children;
+		if(root.right!=null)
+			++children;
+		if(children!=0 || children!=2)
+			return false;
+		return isStrictTree(root.left) && isStrictTree(root.right);
+	}
+	
+	static public void printKthLevelNodes(Node root, int k)
+	{
+		if(root==null || k<0)
+			return;
+		
+		printKthLevelNodes(root.left, k-1);
+		printKthLevelNodes(root.right, k-1);
+		if(k==0)
+			System.out.println(root.data);
+	}
+	
+	static class PathWithMaxSum
+	{
+		private int maxSum = Integer.MIN_VALUE;
+		
+		public Stack<Integer> pathWithMaxSum(Node root)
+		{
+			Stack<Integer> path = new Stack<>();
+			Stack<Integer> maxPath = new Stack<>();
+			this.pathWithMaxSumUtils(root, path, maxPath);
+			System.out.println(maxSum);
+			return maxPath;
+		}
+		
+		private void pathWithMaxSumUtils(Node root,Stack<Integer> path,Stack<Integer> maxPath)
+		{
+			if(root==null)
+				return;
+			path.push(root.data);
+			if(isLeaf(root))
+			{
+				int pathSum = 0;
+				for(int i:path)
+					pathSum+=i;
+				if(maxSum<pathSum)
+				{
+					maxSum=pathSum;
+					maxPath.clear();
+					path.forEach(e->{maxPath.push(e);});
+				}
+					
+			}
+			pathWithMaxSumUtils(root.left, path, maxPath);
+			pathWithMaxSumUtils(root.right, path, maxPath);
+			path.pop();
+		}
+	}
+	
+	
 }

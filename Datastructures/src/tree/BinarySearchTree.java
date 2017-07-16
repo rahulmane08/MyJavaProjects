@@ -133,6 +133,12 @@ public class BinarySearchTree {
 	{
 		this.delete(root,data);
 	}
+	/**
+	 * 
+	 * @param root
+	 * @param data
+	 * @return
+	 */
 	private Node delete(Node root,int data)
 	{
 		if(root==null || root.data == data)
