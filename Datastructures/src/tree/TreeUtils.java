@@ -686,4 +686,58 @@ public class TreeUtils
 		createDoubleTree(doubleRoot.left);
 		createDoubleTree(root.right);	
 	}
+	
+	public static boolean printAncestorsOfGivenNode(Node root)
+	{
+		if(root==null)
+			return false;
+		if(printAncestorsOfGivenNode(root.left) || printAncestorsOfGivenNode(root.right))
+		{
+			System.out.println(root.data);
+			return true;
+		}
+		return false;
+	}
+		
+	/**
+	*  	 	 26
+	        /   \
+	      10     3
+	    /    \     \
+	  4      6      3
+	 * @param root
+	 * @return
+	 */
+	public static boolean checkIfSumTree(Node root)
+	{
+		if(root==null || TreeUtils.isLeaf(root))
+			return true;
+		int left = TreeUtils.sum(root.left);
+		int right = TreeUtils.sum(root.right);
+		return (root.data == left+right) && checkIfSumTree(root.left) && checkIfSumTree(root.right);
+	}
+	
+	public static boolean checkIfSubtree(Node mainRoot, Node subRoot)
+	{
+		if(mainRoot==null && subRoot==null)
+			return true;
+		if(mainRoot==null)
+			return false;
+		if(subRoot==null)
+			return false;
+		if(mainRoot.data==subRoot.data)
+			 return TreeUtils.areTreesIdentical(mainRoot, subRoot);
+		return checkIfSubtree(mainRoot.left, subRoot) || checkIfSubtree(mainRoot.right, subRoot); 			
+	}
+
+	public static void convertToSumTree(Node root)
+	{
+		if(root==null)
+			return;
+		int left = TreeUtils.sum(root.left);
+		int right = TreeUtils.sum(root.right);
+		root.data = left + right;
+		convertToSumTree(root.left);
+		convertToSumTree(root.right);
+	}
 }

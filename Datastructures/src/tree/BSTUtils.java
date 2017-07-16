@@ -168,7 +168,7 @@ public class BSTUtils
 		return root;
 	}
 	
-	static public class KthSmallest
+	static public class KthSmallest1
 	{
 		private static int current = 0;
 		private static Node kthNode= null;

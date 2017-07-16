@@ -15,6 +15,10 @@ public class BinarySearchTree {
 		super();
 	}
 	
+	public BinarySearchTree(int [] sortedArray)
+	{
+		root = BSTUtils.createBalancedBST(sortedArray, 0, sortedArray.length-1);
+	}
 
 	public void reverse(Node node)
 	{

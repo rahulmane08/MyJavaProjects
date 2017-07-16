@@ -278,4 +278,19 @@ public class StackUtils {
 		}
 		s.push(curr);
 	}
+	
+	static public boolean isPalindrome(String A)
+	{
+		char[] characters = A.toCharArray();
+		int length = characters.length;
+		Stack<Character> stack = new Stack<>();
+		int i=0;
+		for(;i<length/2;i++)
+			stack.push(characters[i]);
+		if(length%2!=0) ++i;
+		for(;i<characters.length;i++)
+			if(characters[i]!=stack.pop())
+				break;
+		return stack.size()==0;
+	}
 }

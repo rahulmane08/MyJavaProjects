@@ -11,10 +11,7 @@ public class BinaryTree
 		super();
 	}
 
-	public BinaryTree(int [] sortedArray)
-	{
-		root = BSTUtils.createBalancedBST(sortedArray, 0, sortedArray.length-1);
-	}
+	
 	
 	public void insert(int data)
 	{
@@ -76,57 +73,5 @@ public class BinaryTree
 		nodeToDelete.data = deepestNode.data;
 		deepestNode = null;
 	}
-	public static boolean printAncestorsOfGivenNode(Node root)
-	{
-		if(root==null)
-			return false;
-		if(printAncestorsOfGivenNode(root.left) || printAncestorsOfGivenNode(root.right))
-		{
-			System.out.println(root.data);
-			return true;
-		}
-		return false;
-	}
-		
-	/**
-	*  	 26
-	        /   \
-	      10     3
-	    /    \     \
-	  4      6      3
-	 * @param root
-	 * @return
-	 */
-	public static boolean checkIfSumTree(Node root)
-	{
-		if(root==null || isLeaf(root))
-			return true;
-		int left = sum(root.left);
-		int right = sum(root.right);
-		return (root.data == left+right) && checkIfSumTree(root.left) && checkIfSumTree(root.right);
-	}
 	
-	public static boolean checkIfSubtree(Node mainRoot, Node subRoot)
-	{
-		if(mainRoot==null && subRoot==null)
-			return true;
-		if(mainRoot==null)
-			return false;
-		if(subRoot==null)
-			return false;
-		if(mainRoot.data==subRoot.data)
-			 return areTreesIdentical(mainRoot, subRoot);
-		return checkIfSubtree(mainRoot.left, subRoot) || checkIfSubtree(mainRoot.right, subRoot); 			
-	}
-
-	public static void convertToSumTree(Node root)
-	{
-		if(root==null)
-			return;
-		int left = sum(root.left);
-		int right = sum(root.right);
-		root.data = left + right;
-		convertToSumTree(root.left);
-		convertToSumTree(root.right);
-	}
 }
