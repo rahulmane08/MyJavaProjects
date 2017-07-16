@@ -1,7 +1,15 @@
 package graph;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+
+import graph.cycledetection.CycleDetection;
+import graph.traversal.GraphTraversal;
+
 public class GraphUtils 
 {
+	private static final int INF = Integer.MAX_VALUE;
 	static public <T> Graph<T> transpose(Graph<T> graph)
 	{
 		if(graph==null)
@@ -82,4 +90,27 @@ public class GraphUtils
 		}
 		visited.remove(source.getId());			
 	}
+	
+	static public <T> int[][] getAdjacencyMatrix(Graph<T> graph)
+	{
+		if(graph==null)
+			return null;
+		int V = graph.getAllEdges().size();
+		int [][] adj = new int[V][V];
+		for(int i=0;i<V;i++)
+			for(int j=0;j<V;j++)
+				adj[i][j] = INF;
+		
+		for(Edge<T> e: graph.getAllEdges())
+		{
+			int i = (int) e.getVertex1().getId();
+			int j = (int) e.getVertex2().getId();
+			adj[i][j]=e.getWeight();
+			
+			if(!graph.isDirected)
+				adj[j][i]=e.getWeight();
+		}
+		return adj;
+	}
+	
 }
