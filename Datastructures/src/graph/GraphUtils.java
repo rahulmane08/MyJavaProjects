@@ -61,6 +61,16 @@ public class GraphUtils
 		return false;
 	}
 	
+	
+	/**
+	 * 1. here we have to visit the node and once all the children are visited ,
+	 * 2. if in the current path we reach a sink node that is not destination no path is found
+	 * 3. if in the current dfs path we find the destination node then print the vertexes in the visited set.
+	 * 4. we have to mark it unvisited as the recursion unnwinds.
+	 * @param graph
+	 * @param source
+	 * @param dest
+	 */
 	static public <T> void printAllPaths(Graph<T> graph, Vertex<T> source, Vertex<T> dest)
 	{
 		if(graph==null)
