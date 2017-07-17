@@ -132,4 +132,30 @@ public class GraphUtils
 		System.out.println("Total triangles "+triangles);
 	}
 	
+	static public <T> int countwalks(Graph<T> graph, int u, int v, int k)
+	{
+		if(graph==null)
+			return -1;
+		int V = graph.getAllVertexes().size();
+		int[][] adj = getAdjacencyMatrix(graph);		
+		return countwalks(adj, u, v, k,V);
+	}
+	static private <T> int countwalks(int[][] graph, int u, int v, int k, int V)
+	    {
+		// Base cases
+		if (k == 0 && u == v)           return 1;
+		if (k == 1 && graph[u][v] == 1) return 1;
+		if (k <= 0)                     return 0;
+
+		// Initialize result
+		int count = 0;
+
+		// Go to all adjacents of u and recur
+		for (int i = 0; i < V; i++)
+		    if (graph[u][i] == 1)  // Check if is adjacent of u
+			count += countwalks(graph, i, v, k-1,V);
+
+		return count;
+	    }
+	
 }
