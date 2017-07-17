@@ -95,7 +95,7 @@ public class GraphUtils
 	{
 		if(graph==null)
 			return null;
-		int V = graph.getAllEdges().size();
+		int V = graph.getAllVertexes().size();
 		int [][] adj = new int[V][V];
 		for(int i=0;i<V;i++)
 			for(int j=0;j<V;j++)
@@ -111,6 +111,25 @@ public class GraphUtils
 				adj[j][i]=e.getWeight();
 		}
 		return adj;
+	}
+	
+	static public <T> void findAllTriangles(Graph<T> graph)
+	{
+		if(graph==null)
+			return;
+		int[][] adj = getAdjacencyMatrix(graph);
+		int triangles=0;
+		int V = graph.getAllVertexes().size();
+		for(int i=0;i<V;i++)
+			for(int j=0;j<V;j++)
+				for(int k=0;k<V;k++)
+					if(adj[i][j]==1 && adj[j][k]==1 && adj[k][i]==1)
+						++triangles;
+		if(graph.isDirected)
+			triangles = triangles/3;
+		else
+			triangles = triangles/6;
+		System.out.println("Total triangles "+triangles);
 	}
 	
 }
