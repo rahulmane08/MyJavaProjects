@@ -20,6 +20,20 @@ public class CycleDetection {
 		else
 			return detectCycleInUDG(graph);
 	}
+
+	/**
+	 *     idea is to do DFS and pass a stack to the dfs method
+	 *     if the path from the current node ends with a sink node then 
+	 *     detectCycleInDG(Vertex<T> vertex, HashSet<Long> visited, Stack<Vertex<T>> stack)
+	 *     return false
+	 *     if there is a cycle, the method will definitely comeback to the root node in which case 
+	 *     we dont proceed with the recursion but check in the path stack.
+	 *     Also we will have to pop out the current node from stack before recursion unwinds the
+	 *     current method call
+	 * 
+	 * @param graph
+	 * @return
+	 */
 	static private <T> boolean detectCycleInDG(Graph<T> graph)
 	{
 		HashSet<Long> visited = new HashSet<>();
@@ -48,6 +62,14 @@ public class CycleDetection {
 		return false;		
 	}
 	
+	/**
+	 * 1. create a disjoint set of all vertexes in graph
+	 * 2. iterate over all the edges and start putting connected nodes in a single set.
+	 * 3. if the two nodes being added belong to same set, ie have the same set representative, then there is a cycle.
+	 * 
+	 * @param graph
+	 * @return
+	 */
 	static private <T> boolean detectCycleInUDG(Graph<T> graph)
 	{
 		DisjointSet<Long> set = new DisjointSet<>();

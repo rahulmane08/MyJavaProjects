@@ -3,6 +3,26 @@ package graph;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 1. DisjointSet is formed of nodes belonging to same or different sets. Each set has a single representative.
+ * 2. Each Node has a data , rank and parent pointer to parent Node
+ * 3. Three main operations
+ * 		a. makeSet:  whenever a node is added node.parent=node, which means it doesnt have a parent yet.
+ * 		b. findSet: always gives the representative of the set. The representative of the set follows the prop = node.parent=node
+ * 		c. union: adding two nodes of same set (same representative) returns false. If they belong to different sets, then get their respective 
+ * 					representatives:
+ * 					if(parent1.rank>=parent2.rank)
+					{
+						parent1.rank=(parent1.rank>parent2.rank)?parent1.rank+1:parent2.rank;
+						parent2.parent=parent1;
+					}
+					else
+						parent1.parent=parent2;
+ * 
+ * @author rahul
+ *
+ * @param <T>
+ */
 public class DisjointSet<T> 
 {
 	static public class Node<T> 

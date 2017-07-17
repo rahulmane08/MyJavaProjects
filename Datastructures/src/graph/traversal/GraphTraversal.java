@@ -61,6 +61,16 @@ public class GraphTraversal
 			if(!visited.contains(adjacentVertex.getId()))
 				dfsUtil(adjacentVertex, visited);
 	}
+	
+	/**
+	 * method that finds destination from source vertex in graph only if its in the speficied depth
+	 * 
+	 * @param graph
+	 * @param source
+	 * @param dest
+	 * @param maxDepth
+	 * @return
+	 */
 	static public <T> boolean iddfs(Graph<T> graph,Long source, Long dest, int maxDepth)
 	{
 		if(graph==null)
