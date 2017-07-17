@@ -928,5 +928,74 @@ public class TreeUtils
 		}
 	}
 	
+	public static void printBoundaryNodesAntiClockwise(Node root)
+	{
+		if(root==null)
+			return;
+		Node temp = root;
+		Queue<Integer> boundaryNodesQ = new java.util.LinkedList<>();
+		while(!isLeaf(temp))
+		{
+			boundaryNodesQ.offer(temp.data);
+			temp=temp.left;
+		}
+		Queue<Node> queue = new java.util.LinkedList<>();
+		Stack<Integer> stack = new Stack<Integer>();
+		queue.offer(root);
+		while(!queue.isEmpty())
+		{
+			temp = queue.poll();
+			if(isLeaf(temp))
+				stack.push(temp.data);
+			if(temp.left!=null)
+				queue.offer(temp.left);
+			if(temp.right!=null)
+				queue.offer(temp.right);
+		}
+		while(!stack.isEmpty())
+			boundaryNodesQ.offer(stack.pop());
+		temp = root.right;
+		while(!isLeaf(temp))
+		{
+			stack.push(temp.data);
+			temp = temp.right;
+		}
+		while(!stack.isEmpty())
+			boundaryNodesQ.offer(stack.pop());
+		System.out.println(boundaryNodesQ);
+	}
+	/**
+	 * To create Double tree of the given tree, create a new duplicate for each node, and insert the duplicate as the left child of the original node.
+	 * INPUT
+		  		1
+	          /   \
+	        2      3
+	      /  \
+	    4     5
+    	
+    	OUTPUT:
+		    			1
+		             /   \
+		           1      3
+		          /      /
+		        2       3
+		      /  \
+		     2    5
+		    /    /
+		   4   5
+		  /   
+		 4    
+    
+	 */
 	
+	public static void createDoubleTree(Node root)
+	{
+		if(root==null)
+			return ;
+		Node doubleRoot = new Node(root.data);
+		doubleRoot.left = root.left;		
+		root.left = doubleRoot;
+		createDoubleTree(doubleRoot.left);
+		createDoubleTree(root.right);	
+	}
 }

@@ -123,6 +123,7 @@ public class GraphUtils
 		return adj;
 	}
 	
+
 	
 	/**
 	 * 1. get the adjacency matrix
@@ -131,6 +132,7 @@ public class GraphUtils
 	 * 4. for a UDG, it will do triple counting twice, hence divide result by 6.
 	 * @param graph
 	 */
+
 	static public <T> void findAllTriangles(Graph<T> graph)
 	{
 		if(graph==null)

@@ -506,4 +506,43 @@ public class BSTUtils
 		Node root = createBalancedBST(merged);
 		return new BinarySearchTree(root);
 	}
+	
+	static class InorderPredecssorSuccessor
+	{
+		private static Node predecessor,successor;
+		private static void predecessorSuccessor(Node root, int data)
+		{
+			if(root==null)
+				return;
+			if(root.data == data)
+			{
+				predecessor = max(root.left);
+				successor = min(root.right);				
+				return;
+			}
+			if(data<root.data)
+			{
+				successor = root;
+				predecessorSuccessor(root.left, data);
+			}
+				
+			if(data>root.data)
+			{
+				predecessor = root;
+				predecessorSuccessor(root.right, data);
+			}				
+		}
+		
+		public static Node inorderPredecessor(Node root, int data)
+		{
+			predecessorSuccessor(root, data);
+			return predecessor;
+		}
+		public static Node inorderSuccessor(Node root, int data)
+		{
+			predecessorSuccessor(root, data);
+			return successor;
+		}
+		
+	}
 }
