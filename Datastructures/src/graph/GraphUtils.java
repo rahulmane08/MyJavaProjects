@@ -123,6 +123,14 @@ public class GraphUtils
 		return adj;
 	}
 	
+	
+	/**
+	 * 1. get the adjacency matrix
+	 * 2. check if three points , 3 vertexes i,j,k such that adj[i][j]==1 && adj[j][k]==1 && adj[k][i]==1, if yes then we found a triangle
+	 * 3. for a DG, the above for loop will do triple counting , hence divide result by 3
+	 * 4. for a UDG, it will do triple counting twice, hence divide result by 6.
+	 * @param graph
+	 */
 	static public <T> void findAllTriangles(Graph<T> graph)
 	{
 		if(graph==null)
