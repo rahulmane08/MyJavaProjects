@@ -5,6 +5,15 @@ import java.util.Stack;
 
 public class TopologicalSort 
 {
+	/**
+	 * 1. do a dfs
+	 * 2. add the current node to stack when all the childrens are visited
+	 * 
+	 * 
+	 * @param vertex
+	 * @param visited
+	 * @param stack
+	 */
 	public static <T> void topologicalSortUtil(Vertex<T> vertex, HashSet<Long> visited, Stack<Vertex<T>> stack)
 	{
 		visited.add(vertex.getId());

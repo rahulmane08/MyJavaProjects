@@ -52,13 +52,16 @@ public class GraphUtils
 			boolean cyclePresent = CycleDetection.detectCycle(graph);
 			if(cyclePresent)
 				return false;
-			HashSet<Long> visited = new HashSet<>();
-			Vertex<T> start = graph.getAllVertexes().iterator().next();
-			GraphTraversal.dfsUtil(start, visited);
-			return visited.size()==graph.getAllVertexes().size();
+			return checkIfGraphIsConnected(graph);
 			
 		}
 		return false;
+	}
+	public static <T> boolean checkIfGraphIsConnected(Graph<T> graph) {
+		HashSet<Long> visited = new HashSet<>();
+		Vertex<T> start = graph.getAllVertexes().iterator().next();
+		GraphTraversal.dfsUtil(start, visited);
+		return visited.size()==graph.getAllVertexes().size();
 	}
 	
 	
