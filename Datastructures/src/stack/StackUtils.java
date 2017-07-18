@@ -38,7 +38,17 @@ public class StackUtils {
 	private static boolean isParenthesisPairs(char p1, char p2) {
 		return ((parenthesisPairs.get(p1).equals(p2)) || (parenthesisPairs.get(p2).equals(p1)));
 	}
-
+	
+	/**
+	 * 1. operand check to print it out directly
+	 * 2. ) check to pop out and print stack elements till ( is reached and then also pop out (
+	 * 3. push ( without any pre condition
+	 * 4. push an operator directly if stack is empty 
+	 * 5. if its not empty then either ( or other operators are there
+	 * 		a. push directly if stack top is smaller than current
+	 * 		b. else pop and print until ( or smaller or same rank operator is encountered
+	 * @param infixExp
+	 */
 	public static void convertToPostfix(String infixExp) {
 		if (infixExp == null)
 			return;
