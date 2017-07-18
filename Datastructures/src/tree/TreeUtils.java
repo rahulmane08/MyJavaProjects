@@ -177,6 +177,37 @@ public class TreeUtils
 				System.out.println(finalStack.pop());
 		}
 		
+		/**
+		 * use 2 pointers
+		 * a. curr to iterate over left branch till leaf
+		 * b. temp node that pops and prints in post order
+		 * c. pop from stack top and check if theres a right node if yes assign it to current and then add its left branch in stack
+		 * d. if theres not right node, pop from stack
+		 * 		
+		 * 
+		 * @param root
+		 */
+		static public void postOrderItrOneStack(Node root){
+			Node current = root;
+			Stack<Node> stack = new Stack<>();
+			while(current != null || !stack.isEmpty()){
+			    if(current != null){
+				stack.push(current);
+				current = current.left;
+			    }else{	                
+				if (stack.peek().right != null) { //check if right node is present , if yes then set current to it and then push its entire left branch into stack
+					current = stack.peek().right;
+				} else {	                    
+				    Node temp = stack.pop();
+				    System.out.print(temp.data + " ");
+				    while (!stack.isEmpty() && temp == stack.peek().right) {
+					temp = stack.pop();
+					System.out.print(temp.data + " ");
+				    }
+				}
+			    }
+			}
+		    }
 		public static void inOrderTraversal(Node node)
 		{
 			if(node==null)
