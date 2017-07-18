@@ -115,38 +115,76 @@ public class PriorityQueue
 			//percolate down
 			int lIndex = getLeftChildIndex(index);
 			int rIndex = getRightChildIndex(index);
-			//check if the left and right are valid indexes. If any of it is not means we have reached the leaf level
-			//cant be heapified any further
-			if(!(validateIndex(lIndex) || validateIndex(rIndex)))
-			 return;
 			
-			int leftElem = heap.getElements()[lIndex];
-			int rightElem = heap.getElements()[rIndex];
+			boolean checkLeft = validateIndex(lIndex);
+			boolean checkRight = validateIndex(rIndex);			
 			
-			
+			if(!checkLeft && !checkRight)
+				return; //reached the last level
 			
 			if(heap.isMaxHeap())
 			{
-				if(currElem<leftElem)
+				if(checkLeft && checkRight)
 				{
-					indexToReplace = lIndex;
+					int leftElem = heap.getElements()[lIndex];
+					int rightElem = heap.getElements()[rIndex];
+					if(currElem<leftElem)
+					{
+						indexToReplace = lIndex;						
+					}
+					if(leftElem<rightElem)
+					{
+						indexToReplace = rIndex;
+					}
+				}
+				else if(checkLeft)
+				{
+					int leftElem = heap.getElements()[lIndex];
+					if(currElem<leftElem)
+					{
+						indexToReplace = lIndex;						
+					}
+				}				
+				else if(checkRight)
+				{
+					int rightElem = heap.getElements()[rIndex];
+					if(currElem<rightElem)
+					{
+						indexToReplace = rIndex;
+					}
 				}
 				
-				if(leftElem<rightElem)
-				{
-					indexToReplace = rIndex;
-				}
 			}
 			else
 			{
-				if(currElem>leftElem)
+				if(checkLeft && checkRight)
 				{
-					indexToReplace = lIndex;
+					int leftElem = heap.getElements()[lIndex];
+					int rightElem = heap.getElements()[rIndex];
+					if(currElem>leftElem)
+					{
+						indexToReplace = lIndex;						
+					}
+					if(leftElem>rightElem)
+					{
+						indexToReplace = rIndex;
+					}
 				}
-				
-				if(leftElem>rightElem)
+				else if(checkLeft)
 				{
-					indexToReplace = rIndex;
+					int leftElem = heap.getElements()[lIndex];
+					if(currElem>leftElem)
+					{
+						indexToReplace = lIndex;						
+					}
+				}				
+				else if(checkRight)
+				{
+					int rightElem = heap.getElements()[rIndex];
+					if(currElem>rightElem)
+					{
+						indexToReplace = rIndex;
+					}
 				}
 			}
 			
@@ -155,7 +193,9 @@ public class PriorityQueue
 		else
 		{
 			//percolate up
-			int parentIndex = getParentIndex(index);			
+			int parentIndex = getParentIndex(index);		
+			if(!validateIndex(parentIndex))
+				return;
 			int parentElem = getParent(index);
 			
 			if(heap.isMaxHeap())
