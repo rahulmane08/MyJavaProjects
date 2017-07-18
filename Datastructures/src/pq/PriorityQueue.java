@@ -47,8 +47,8 @@ public class PriorityQueue
 		if(validateIndex(index))
 		{
 			int parentIndex = (index-1)/2;
-			validateIndex(parentIndex);
-			return parentIndex;
+			if(validateIndex(parentIndex))
+				return parentIndex;
 		}
 		return -1;
 	}
