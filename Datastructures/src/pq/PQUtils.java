@@ -204,4 +204,38 @@ public class PQUtils {
 						
 		return true;
 	}
+	
+	static public int kthMinMax(int [] arr, int k, boolean max)
+	{
+		if(k>arr.length)
+			return -1;
+		PriorityQueue heap = new PriorityQueue(arr, max);
+		int kthElem = 0;
+		for(int i=1;i<=k;i++)
+			kthElem = heap.delete();
+		return kthElem;
+	}
+	
+	static public int[] sortAlmostSorted(int [] arr)
+	{
+		int n = arr.length;
+		int[] sorted = new int[n];
+		java.util.PriorityQueue<Integer> pq = new java.util.PriorityQueue<>();
+		int k = 0;
+		for(;k<n-1;)
+			if(arr[k]<arr[k+1])
+				k++;
+			else
+				break;
+		for(int i=k;i<n;i++)
+			pq.offer(arr[i]);
+		int i = 0;
+		for(i=0;i<k;i++)
+			sorted[i] = arr[i];
+		
+		while(!pq.isEmpty())
+			sorted[i++] = pq.poll();
+		
+		return sorted;
+	}
 }
