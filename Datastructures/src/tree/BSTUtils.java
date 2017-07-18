@@ -507,6 +507,39 @@ public class BSTUtils
 		return new BinarySearchTree(root);
 	}
 	
+	public static Node inorderSuccessor(Node root, int data)
+	{
+		if(root == null)
+			return null;
+		Node successor = null;
+		if(data<root.data)
+			successor = inorderSuccessor(root.left, data);
+		else if(root.data<data)
+			successor = inorderSuccessor(root.right, data);
+		else
+			return min(root.right);
+		
+		if(successor==null)
+			successor = root;
+		
+		return successor;
+	}
+	public static Node inorderPredecessor(Node root, int data)
+	{
+		if(root==null)
+			return null;
+		Node predecessor = null;
+		if(data<root.data)
+			predecessor = inorderPredecessor(root.left, data);
+		else if(root.data<data)
+			predecessor = inorderPredecessor(root.right, data);
+		else
+			return max(root.left);
+		if(predecessor==null)
+			predecessor=root;
+		
+		return predecessor;
+	}
 	static class InorderPredecssorSuccessor
 	{
 		private static Node predecessor,successor;
@@ -545,4 +578,5 @@ public class BSTUtils
 		}
 		
 	}
+	
 }
