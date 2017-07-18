@@ -186,17 +186,22 @@ public class PQUtils {
 		return isHeap(arr, 0, arr.length, max);
 	}
 
-	static private boolean isHeap(int[] arr, int index, int elements, boolean max) {
-		if (index > (elements - 2) / 2)
-			return true;
-		boolean yes = 
-				(max ? 
-				(arr[index] >= arr[2 * index + 1] && arr[index] >= arr[2 * index + 2])
-				: 
-				(arr[index] <= arr[2 * index + 1] && arr[index] <= arr[2 * index + 2])
-				)
-				&& isHeap(arr, 2 * index + 1, elements, max) 
-				&& isHeap(arr, 2 * index + 2, elements, max);
-		return yes;
+	/**
+	 * recursively check until the last level is reached.
+	 * 
+	 * @param arr
+	 * @param index
+	 * @param size
+	 * @param max
+	 * @return
+	 */
+	static private boolean isHeap(int[] arr, int index, int size, boolean max)
+	{
+		if(index<=(size-2)/2)
+			return (max?(arr[index]>=arr[2*index+1] && arr[index]>=arr[2*index+2]):(arr[index]<=arr[2*index+1] && arr[index]<=arr[2*index+2])) 
+						&& isHeap(arr,2*index+1,size,max) 
+						&& isHeap(arr,2*index+2,size,max);
+						
+		return true;
 	}
 }
