@@ -257,10 +257,13 @@ public class StackUtils {
 	}
 
 	
-	static public void sort(Stack<Integer> stack) {
-		int curr = Integer.MIN_VALUE;
-		sort(stack, curr);
-		stack.pop();
+	static public void sort(Stack<Integer> stack)	
+	{
+		if(stack.isEmpty())
+			return;
+		Integer curr = stack.pop();		
+		sort(stack);
+		sort(stack,curr);
 	}
 
 	static private void sort(Stack<Integer> s, int prev) {
