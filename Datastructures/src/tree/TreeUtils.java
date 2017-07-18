@@ -101,64 +101,85 @@ public class TreeUtils
 	}
 	public static class Traversals
 	{
-		public static void preOrderIterative(Node root)
-		{
-			Stack<Node> stack = new Stack<>();
-			if(root!=null)
-				stack.push(root);
-			while(!stack.isEmpty())
-			{
-				root = stack.pop();
-				System.out.println(root.data);
-				if(root.right!=null)
-					stack.push(root.right);
-				if(root.left!=null)
-					stack.push(root.left);
-			}
-		}
-		public static void preOrderIterative2(Node root)
-		{
-			Stack<Node> stack = new Stack<>();
-			while(true)
-			{
-				if(root!=null)
-				{
-					System.out.println(root.data);
-					stack.push(root);
-					root = root.left;
-				}
-				else
-				{
-					if(stack.isEmpty())
-						break;
-					root = stack.pop();				
-					root = root.right;
-				}
-			}
-		}
-		
 		public static void inOrderIterative(Node root)
 		{
 			Stack<Node> stack = new Stack<>();
+			Node curr = root;
+			while(curr!=null || !stack.isEmpty())
+			{
+				if(curr!=null)
+				{
+					stack.push(curr);
+					curr = curr.left;
+				}
+				else
+				{
+					curr = stack.pop();
+					System.out.print(curr.data + " ");
+					curr = curr.right;
+				}
+			}
+			System.out.println();
+		}
+		
+		
+		public static void preOrderIterative(Node root)
+		{
+			Stack<Node> stack = new Stack<>();
+			Node curr = root;
 			while(true)
 			{
-				if(root!=null)
+				if(curr!=null)
 				{
-					stack.push(root);
-					root = root.left;
+					System.out.print(curr.data+" ");
+					stack.push(curr);
+					curr = curr.left;
 				}
 				else
 				{
 					if(stack.isEmpty())
 						break;
-					root = stack.pop();
-					System.out.println(root.data);
-					root = root.right;
+					curr = stack.pop();				
+					curr = curr.right;
 				}
 			}
+			System.out.println();
 		}
 		
-		public static void postOrderIterative(Node root)
+		/**
+		 * use 2 pointers
+		 * a. curr to iterate over left branch till leaf
+		 * b. temp node that pops and prints in post order
+		 * c. pop from stack top and check if theres a right node if yes assign it to current and then add its left branch in stack
+		 * d. if theres not right node, pop from stack
+		 * 		
+		 * 
+		 * @param root
+		 */
+		static public void postOrderIterative(Node root){
+	        Node current = root;
+	        Stack<Node> stack = new Stack<>();
+	        while(current != null || !stack.isEmpty()){
+	            if(current != null){
+	                stack.push(current);
+	                current = current.left;
+	            }else{	                
+	                if (stack.peek().right != null) { //check if right node is present , if yes then set current to it and then push its entire left branch into stack
+	                	current = stack.peek().right;
+	                } else {	                    
+	                    Node temp = stack.pop();
+	                    System.out.print(temp.data + " ");
+	                    while (!stack.isEmpty() && temp == stack.peek().right) { //if you just popped a right node also pop its parent.
+	                        temp = stack.pop();
+	                        System.out.print(temp.data + " ");
+	                    }
+	                }
+	            }
+	        }
+	        System.out.println();
+	    }
+		
+		public static void postOrderIterative2(Node root)
 		{	
 			Stack<Node> tempStack = new Stack<>();
 			Stack<Node> finalStack = new Stack<>();
@@ -177,37 +198,21 @@ public class TreeUtils
 				System.out.println(finalStack.pop());
 		}
 		
-		/**
-		 * use 2 pointers
-		 * a. curr to iterate over left branch till leaf
-		 * b. temp node that pops and prints in post order
-		 * c. pop from stack top and check if theres a right node if yes assign it to current and then add its left branch in stack
-		 * d. if theres not right node, pop from stack
-		 * 		
-		 * 
-		 * @param root
-		 */
-		static public void postOrderItrOneStack(Node root){
-			Node current = root;
+		public static void preOrderIterative2(Node root)
+		{
 			Stack<Node> stack = new Stack<>();
-			while(current != null || !stack.isEmpty()){
-			    if(current != null){
-				stack.push(current);
-				current = current.left;
-			    }else{	                
-				if (stack.peek().right != null) { //check if right node is present , if yes then set current to it and then push its entire left branch into stack
-					current = stack.peek().right;
-				} else {	                    
-				    Node temp = stack.pop();
-				    System.out.print(temp.data + " ");
-				    while (!stack.isEmpty() && temp == stack.peek().right) {
-					temp = stack.pop();
-					System.out.print(temp.data + " ");
-				    }
-				}
-			    }
+			if(root!=null)
+				stack.push(root);
+			while(!stack.isEmpty())
+			{
+				root = stack.pop();
+				System.out.println(root.data);
+				if(root.right!=null)
+					stack.push(root.right);
+				if(root.left!=null)
+					stack.push(root.left);
 			}
-		    }
+		}
 		public static void inOrderTraversal(Node node)
 		{
 			if(node==null)
