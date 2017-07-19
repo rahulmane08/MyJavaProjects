@@ -4,7 +4,7 @@ public class BinarySearch {
 	static public boolean search(int[] arr, int left, int right, int elem) {
 		if (right < left)
 			return false;
-		int mid = (left + right) / 2;
+		int mid = (left + right)>>>1;
 		if (arr[mid] == elem)
 			return true;
 		else if (elem < arr[mid])
