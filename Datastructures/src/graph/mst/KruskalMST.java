@@ -52,4 +52,25 @@ public class KruskalMST
 		}
 		return edges;
 	}
+	
+	public static void main(String[] args) {
+		Graph<String> graph = new Graph<>(false);
+		Vertex<String> A = new Vertex<>(1);
+		Vertex<String> B = new Vertex<>(2);
+		Vertex<String> C = new Vertex<>(3);
+		Vertex<String> D = new Vertex<>(4);
+		
+		A.setData("A");
+		B.setData("B");
+		C.setData("C");
+		D.setData("D");
+		
+		graph.addEdge(A, B, 1);
+		graph.addEdge(A, C, 3);
+		graph.addEdge(D, B, 1);
+		graph.addEdge(D, C, 1);
+		graph.addEdge(B, C, 2);
+		
+		KruskalMST.printMST(graph);
+	}
 }

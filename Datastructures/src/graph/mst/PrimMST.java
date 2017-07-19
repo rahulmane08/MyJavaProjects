@@ -7,6 +7,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+
+/**
+ * 
+ * Structure to hold the vertex and the edge reaching to it having min edge.
+ * @author rahul
+ *
+ */
 class PrimNode
 {
 	private final Long vertexID;
@@ -58,8 +65,17 @@ class PrimNode
 	
 	
 }
+
+/**
+ * Spanning tree = Graph with N vertexes have N-1 edges, which means there are no cycles.
+ * MST = Spanning tree with min sum of weights on the edges. 
+ * 
+ * @author rahul
+ *
+ */
 public class PrimMST {
 	static private final Integer INF = Integer.MAX_VALUE;
+	//Comparator based on the weight of PrimNode
 	static private Comparator<PrimNode> weightComparator = new Comparator<PrimNode>() {
 
 		@Override
@@ -75,8 +91,8 @@ public class PrimMST {
 		Map<Vertex<T>, Edge<T>> minEdgesByVertex = new HashMap<>();
 		
 		//two structures to query for a vertex in constant time and get min in log(V) time.
-		PriorityQueue<PrimNode> pq = new PriorityQueue<>(weightComparator);
-		HashMap<Long, PrimNode> map = new HashMap<>();
+		PriorityQueue<PrimNode> primNodeByMinEdgeWeightHeap = new PriorityQueue<>(weightComparator);
+		HashMap<Long, PrimNode> primNodeMap = new HashMap<>();
 		
 		boolean start=false;
 		//add all vertices to map and priority queue with the first vertex being the start node with weight=0 and rest being INF
@@ -90,36 +106,60 @@ public class PrimMST {
 			}
 			else
 				primNode.setEdgeWeight(INF);;		
-			map.put(v.getId(), primNode);
-			pq.add(primNode);
+			primNodeMap.put(v.getId(), primNode);
+			primNodeByMinEdgeWeightHeap.add(primNode);
 		}
 		
-		while(!pq.isEmpty())
+		/**
+		 * 1. pop the min node from the Min heap
+		 * 2. get all its edges and using each edge find the neighbor
+		 * 3. check if the edge weight is < neighors weight in the 
+		 * 
+		 */
+		while(!primNodeByMinEdgeWeightHeap.isEmpty())
 		{
-			PrimNode primNode= pq.poll();
+			PrimNode primNode= primNodeByMinEdgeWeightHeap.poll();
 			Vertex<T> vertex = graph.getVertex(primNode.getVertexID());
-			if(minEdgesByVertex.containsKey(vertex))
-			{
-				System.out.println(minEdgesByVertex.get(vertex));
-			}
-			else
-			{
-				for(Edge<T> e:vertex.getEdges())
+			for(Edge<T> e:vertex.getEdges())
 				{				
 					Vertex<T> neighbor = e.getVertex2();					
-					PrimNode neighborPrim = map.get(neighbor.getId());
+					PrimNode neighborPrim = primNodeMap.get(neighbor.getId());
 					if(e.getWeight()<neighborPrim.getEdgeWeight())
 					{					
 						//if the edge weight is less that the current prim weight then update the prim weight and add back to PQ.
-						pq.remove(neighborPrim);
+						primNodeByMinEdgeWeightHeap.remove(neighborPrim);
 						neighborPrim.setEdgeWeight(e.getWeight());
-						pq.add(neighborPrim);
+						primNodeByMinEdgeWeightHeap.add(neighborPrim);
 						minEdgesByVertex.put(neighbor, e);
 					}
 				}
-			}
+			
 			
 		}
+		for(Vertex<T> v: minEdgesByVertex.keySet())
+			System.out.println(minEdgesByVertex.get(v));
+				
+			
+	}
+	
+	public static void main(String[] args) {
+		Graph<String> graph = new Graph<>(false);
+		Vertex<String> A = new Vertex<>(1);
+		Vertex<String> B = new Vertex<>(2);
+		Vertex<String> C = new Vertex<>(3);
+		Vertex<String> D = new Vertex<>(4);
 		
+		A.setData("A");
+		B.setData("B");
+		C.setData("C");
+		D.setData("D");
+		
+		graph.addEdge(A, B, 1);
+		graph.addEdge(A, C, 3);
+		graph.addEdge(D, B, 1);
+		graph.addEdge(D, C, 1);
+		graph.addEdge(B, C, 2);
+		
+		PrimMST.printMST(graph);
 	}
 }
