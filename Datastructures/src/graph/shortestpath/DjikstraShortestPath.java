@@ -11,7 +11,12 @@ import java.util.Map.Entry;
 import graph.Edge;
 import graph.Graph;
 import graph.Vertex;
-
+/**
+ * Given a source vertex this algorithm tries to find all the shorted paths from source to all other vertexes.
+ * 
+ * @author rahul
+ *
+ */
 public class DjikstraShortestPath 
 {
 	private static final int INF = Integer.MAX_VALUE;
@@ -28,7 +33,7 @@ public class DjikstraShortestPath
 	static public <T> Map<List<Vertex<T>>, Integer> getShortestPaths(Graph<T> graph, Vertex<T> start)
 	{
 		Map<Vertex<T>,Vertex<T>> parents = new HashMap<>();
-		Map<Vertex<T>, Integer> shortestPaths = new HashMap<>();
+		Map<Vertex<T>, Integer> shortestWeightForVertex = new HashMap<>();
 		Map<Long, Integer> unvisited = new HashMap<>();
 		
 		//presently populate visited with all vertices with INF weight
@@ -43,10 +48,11 @@ public class DjikstraShortestPath
 		{
 			Entry<Long, Integer> minEntry = Collections.min(unvisited.entrySet(),weightComparator);
 			Vertex<T> minVertex = graph.getVertex(minEntry.getKey());
+			int U = minEntry.getValue();
 			
 			//remove the node from unvisited and add it to shortestPath with the weight
 			unvisited.remove(minVertex.getId());			
-			shortestPaths.put(minVertex, minEntry.getValue());
+			shortestWeightForVertex.put(minVertex, U);
 			
 			for(Edge<T> e: minVertex.getEdges())
 			{
@@ -57,20 +63,25 @@ public class DjikstraShortestPath
 					continue;
 				
 				//now check if the total weight from start is less that the current weight
-				int currentWeight = unvisited.get(adj.getId());
-				int totalWeightFromStart = e.getWeight();
-				if(shortestPaths.containsKey(minVertex))
-					totalWeightFromStart += shortestPaths.get(minVertex);
-				if(totalWeightFromStart<currentWeight)
+				int V = unvisited.get(adj.getId());
+				int UV = e.getWeight(); // first initialise to edge weight between current and adjacent node
+				if(U+UV<V)
 				{
-					unvisited.put(adj.getId(), totalWeightFromStart);
+					unvisited.put(adj.getId(), U+UV);
 					parents.put(adj, minVertex);
 				}
 			}
 		}
 		
+		Map<List<Vertex<T>>, Integer> result = formShortestPaths(parents, shortestWeightForVertex);
+		return result;
+	}
+	
+	
+	public static <T> Map<List<Vertex<T>>, Integer> formShortestPaths(Map<Vertex<T>, Vertex<T>> parents,
+			Map<Vertex<T>, Integer> shortestWeightForVertex) {
 		Map<List<Vertex<T>>, Integer> result = new HashMap<>();
-		for(Entry<Vertex<T>,Integer> e: shortestPaths.entrySet())
+		for(Entry<Vertex<T>,Integer> e: shortestWeightForVertex.entrySet())
 		{
 			int minWeight = e.getValue();
 			List<Vertex<T>> s = new ArrayList<>();

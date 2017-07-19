@@ -20,28 +20,29 @@ public class BellmanFordShortestPath
 			return null;
 		
 		Map<List<Vertex<T>>, Integer> result = new HashMap<>();
-		Map<Vertex<T>, Integer> shortestPaths = new HashMap<>();
+		Map<Vertex<T>, Integer> shortestWeightForVertex = new HashMap<>();
 		Map<Vertex<T>, Vertex<T>> parents = new HashMap<>();
 
 		for(Vertex<T> v: graph.getAllVertexes())
-			shortestPaths.put(v,INF);
-		shortestPaths.put(start, 0);
+			shortestWeightForVertex.put(v,INF);
+		shortestWeightForVertex.put(start, 0);
 		parents.put(start, null);
 		
-		int V = graph.getAllVertexes().size();
+		int totalVertexes = graph.getAllVertexes().size();
 		
-		for(int i=0;i<V-1;i++)
+		for(int i=0;i<totalVertexes-1;i++)
 			for(Edge<T> edge: graph.getAllEdges())
 			{
 				Vertex<T> u = edge.getVertex1();
 				Vertex<T> v = edge.getVertex2();
 				
-				int uWeight = shortestPaths.get(u);
-				int vWeight = shortestPaths.get(v);
+				int U = shortestWeightForVertex.get(u);
+				int V = shortestWeightForVertex.get(v);
+				int UV = edge.getWeight();
 				
-				if(uWeight+edge.getWeight()<vWeight)
+				if(U+UV<V)
 				{
-					shortestPaths.put(v, uWeight+edge.getWeight());
+					shortestWeightForVertex.put(v, U+UV);
 					parents.put(v, u);
 				}
 			}
@@ -50,12 +51,12 @@ public class BellmanFordShortestPath
 		for (Edge<T> edge : graph.getAllEdges()) {
             Vertex<T> u = edge.getVertex1();
             Vertex<T> v = edge.getVertex2();
-            if (shortestPaths.get(u) + edge.getWeight() < shortestPaths.get(v)) {
+            if (shortestWeightForVertex.get(u) + edge.getWeight() < shortestWeightForVertex.get(v)) {
                 throw new RuntimeException("Graph has a negative weight cycle and hence solution not possible");
             }
         }
 		
-		for(Entry<Vertex<T>, Integer> entry: shortestPaths.entrySet())
+		for(Entry<Vertex<T>, Integer> entry: shortestWeightForVertex.entrySet())
 		{
 			List<Vertex<T>> path = new ArrayList<>();
 			result.put(path, entry.getValue());			
