@@ -2,97 +2,40 @@ package sort;
 
 import utils.Swapper;
 
-public class HeapSort {
-	static public void sort(int[] arr) {
+public class HeapSort 
+{
+	static public void sort(int[] arr,boolean desc)
+	{
 		int n = arr.length;
-		for (int i = (n / 2) - 1; i >= 0; i--)
-			heapify(arr, i, false, true);
-		for (int i = n - 1; i >= 0; i--) {
+		
+		//first heapify the array
+		for(int i=(n/2)-1;i>=0;i--)
+			heapify(arr, i, n, desc);
+		
+		
+		//swap last element with root and then heapify again
+		for(int i=n-1;i>=0;i--)
+		{
 			Swapper.swap(arr, 0, i);
-			heapify(arr, 0, false, true);
+			heapify(arr, 0, i, desc);
 		}
 	}
 
-	static public void heapify(int[] arr, int index, boolean maxHeap, boolean percolateDown) {
-		if (!validateIndex(index, arr))
-			return;
-		int currElem = arr[index];
-		int indexToReplace = index;
-		if (percolateDown) {
-			int lIndex = getLeftChildIndex(arr, index);
-			int rIndex = getRightChildIndex(arr, index);
-			if (!(validateIndex(lIndex, arr) || validateIndex(rIndex, arr)))
-				return;
-			int leftElem = arr[lIndex];
-			int rightElem = arr[rIndex];
-			if (maxHeap) {
-				if (currElem < leftElem) {
-					indexToReplace = lIndex;
-				}
-				if (leftElem < rightElem) {
-					indexToReplace = rIndex;
-				}
-			} else {
-				if (currElem > leftElem) {
-					indexToReplace = lIndex;
-				}
-				if (leftElem > rightElem) {
-					indexToReplace = rIndex;
-				}
-			}
-		} else {
-			int parentIndex = getParentIndex(arr, index);
-			if (!validateIndex(parentIndex, arr))
-				return;
-			int parentElem = arr[parentIndex];
-			if (maxHeap) {
-				if (parentElem < currElem) {
-					indexToReplace = parentIndex;
-				}
-			} else {
-				if (parentElem > currElem) {
-					indexToReplace = parentIndex;
-				}
-			}
+	private static void heapify(int[] arr, int i, int n,boolean desc) 
+	{
+		int indexToReplace = i;
+		int leftIndex = 2*i+1;
+		int rightIndex = 2*i+2;
+		
+		if(leftIndex<n && (desc?arr[indexToReplace]>arr[leftIndex]:arr[leftIndex]>arr[indexToReplace]))
+			indexToReplace = leftIndex;
+		if(rightIndex<n && (desc?arr[indexToReplace]>arr[rightIndex]:arr[rightIndex]>arr[indexToReplace]))
+			indexToReplace = rightIndex;
+		
+		if(indexToReplace!=i)
+		{
+			Swapper.swap(arr, indexToReplace, i);
+			heapify(arr, indexToReplace, n, desc);
 		}
-		if (indexToReplace != index) {
-			Swapper.swap(arr, index, indexToReplace);
-			heapify(arr, indexToReplace, maxHeap, percolateDown);
-		}
-	}
-
-	static private int getLeftChildIndex(int[] arr, int index) {
-		if (validateIndex(index, arr)) {
-			int leftIndex = 2 * index + 1;
-			if (validateIndex(leftIndex, arr))
-				return leftIndex;
-		}
-		return -1;
-	}
-
-	static private int getParentIndex(int[] arr, int index) {
-		if (index == 0)
-			return 0;
-		if (validateIndex(index, arr)) {
-			int parentIndex = (index - 1) / 2;
-			validateIndex(parentIndex, arr);
-			return parentIndex;
-		}
-		return -1;
-	}
-
-	static private int getRightChildIndex(int[] arr, int index) {
-		if (validateIndex(index, arr)) {
-			int rightIndex = 2 * index + 2;
-			if (validateIndex(rightIndex, arr))
-				return rightIndex;
-		}
-		return -1;
-	}
-
-	static private boolean validateIndex(int index, int[] arr) {
-		if (index < 0 || index > arr.length - 1)
-			return false;
-		return true;
 	}
 }
