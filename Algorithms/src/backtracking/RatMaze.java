@@ -36,21 +36,26 @@ public class RatMaze
 			solution[row][col]=1;
 			return true;
 		}			
-		else
+			
+		//move forward
+		if(isSafe(row+1, col))
 		{
-			boolean yes = false;
-			if(isSafe(row, col))
-			{
-				solution[row][col]=1;
-				
-				yes = solve(row+1,col) || solve(row,col+1);
-				
-				if(!yes)
-					solution[row][col]=0;				
-			}
-			return yes;
+			solution[row+1][col]=1;
+			if(solve(row+1, col))
+				return true;
+			solution[row+1][col]=0;
 		}
 		
+		//move downward
+		else if(isSafe(row, col+1))
+		{
+			solution[row][col+1]=1;
+			if(solve(row, col+1))
+				return true;
+			solution[row][col+1]=0;
+		}
+		
+		return false;
 	}
 	
 	public static void main(String[] args) 
