@@ -4,8 +4,9 @@ public class BSTTest {
 	public static void main(String[] args) {
 		BinarySearchTree bst = createbst();
 		Node root = bst.root;
-		TreeUtils.Traversals.inOrderIterative(root);
-		bst.delete(20);
+//		TreeUtils.MorrisTraversals.inOrderTraversal(root);
+		TreeUtils.MorrisTraversals.preOrderTraversal(root);
+		/*bst.delete(20);
 		TreeUtils.Traversals.inOrderIterative(root);
 		
 		BinarySearchTree bstX = new BinarySearchTree();
@@ -81,7 +82,7 @@ public class BSTTest {
 		bstX.insert(bstX.root,5);
 		bstX.insert(bstX.root,7);
 		System.out.println("All internal nodes have 1 child = "+BSTUtils.hasOneChildForEachInternalNode(bstX));
-
+*/
 	}
 
 	private static BinarySearchTree createbst() {
@@ -90,14 +91,11 @@ public class BSTTest {
 		bst.insert(bst.root, 10);
 		bst.insert(bst.root, 5);		
 		bst.insert(bst.root, 3);
-		bst.insert(bst.root, 4);
 		bst.insert(bst.root, 6);
-		bst.insert(bst.root, 7);
-		bst.insert(bst.root, 8);
-		bst.insert(bst.root, 9);
-		bst.insert(bst.root, 1);
-		bst.insert(bst.root, 2);
-		bst.insert(bst.root, 20);
+		bst.insert(bst.root, 12);
+		bst.insert(bst.root, 11);
+		bst.insert(bst.root, 13);
+		
 		return bst;
 	}
 }

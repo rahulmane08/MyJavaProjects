@@ -98,6 +98,8 @@ public class TreeUtils
 			root.data = inorder[index++];
 		}
 		
+		
+		
 	}
 	public static class Traversals
 	{
@@ -299,6 +301,92 @@ public class TreeUtils
 				}
 			}
 		}
+		
+		
+	}
+	
+	public static class MorrisTraversals
+	{
+		/**
+		 *  current = root
+		 *  while(current!=null)
+		 *  	if(current.left==null)
+		 *  		print current;
+		 *  		current = current.right
+		 *  	else
+		 *  		predecessor = inorderPredecessor(current, current.data)
+		 *  		if(predecessor.right==null)
+		 *  			predecessor.right = current; //point the predecssor right to current
+		 *  			current = current.left;
+		 *  		else
+		 *  			predecessor.right = null;
+		 *  			print current;
+		 *  			current = current.right 
+		 * 
+		 */
+		
+		public static void inOrderTraversal(Node root)
+		{
+			Node current = root;
+			while(current!=null)
+			{
+				if(current.left==null)
+				{
+					System.out.println(current);
+					current = current .right;
+				}
+				else
+				{
+					Node predecessor = current.left;
+					while(predecessor.right!=current && predecessor.right!=null)
+						predecessor = predecessor.right;
+					if(predecessor.right==null)
+					{
+						predecessor.right = current;
+						current = current.left;
+					}
+					else
+					{
+						predecessor.right=null;
+						System.out.println(current);
+						current=current.right;
+					}
+				}
+			}
+		}
+		
+		
+		public static void preOrderTraversal(Node root)
+		{
+			Node current = root;
+			while(current!=null)
+			{				
+				if(current.left==null)
+				{	
+					System.out.println(current);
+					current = current .right;
+				}
+				else
+				{
+					
+					Node predecessor = current.left;
+					while(predecessor.right!=current && predecessor.right!=null)
+						predecessor = predecessor.right;
+					if(predecessor.right==null)
+					{
+						System.out.println(current);
+						predecessor.right = current;
+						current = current.left;
+					}
+					else
+					{
+						predecessor.right=null;
+						current=current.right;
+					}
+				}
+			}
+		}
+		
 	}
 	
 	public static int findMax(Node root)
@@ -775,40 +863,6 @@ public class TreeUtils
 		return (balance<=1) && isHeightBalanced(root.left) && isHeightBalanced(root.right);
 	}
 	
-	/**
-	 * To create Double tree of the given tree, create a new duplicate for each node, and insert the duplicate as the left child of the original node.
-	 * INPUT
-		  		1
-	          /   \
-	        2      3
-	      /  \
-	    4     5
-    	
-    	OUTPUT:
-		    			1
-		             /   \
-		           1      3
-		          /      /
-		        2       3
-		      /  \
-		     2    5
-		    /    /
-		   4   5
-		  /   
-		 4    
-    
-	 */
-	
-	public static void createDoubleTree(Node root)
-	{
-		if(root==null)
-			return ;
-		Node doubleRoot = new Node(root.data);
-		doubleRoot.left = root.left;		
-		root.left = doubleRoot;
-		createDoubleTree(doubleRoot.left);
-		createDoubleTree(root.right);	
-	}
 	
 	public static boolean printAncestorsOfGivenNode(Node root)
 	{

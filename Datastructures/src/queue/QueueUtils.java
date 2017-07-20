@@ -17,7 +17,14 @@ public class QueueUtils {
 		while (stack.isEmpty())
 			queue.enqueue(stack.pop());
 	}
-
+	/**
+	 * 1. populate first window
+	 * 2. start with next element in the array.
+	 * 3. first check if the max in prev window is outside window:dq.peekFirst() < i - k
+	 * 4. then check if the current element is greater than current window elements if yes, pop them out and add current
+	 * @param arr
+	 * @param k
+	 */
 	static public void printMaxInSlidingWindowOfSizeK(int[] arr, int k) {
 		int n = arr.length;
 		Deque<Integer> dq = new LinkedList<>();
@@ -38,6 +45,17 @@ public class QueueUtils {
 		System.out.println("Window = [" + (i - k) + "], max = " + arr[dq.peekFirst()]);
 	}
 
+	/**
+	 *  0: Empty cell
+		1: Cells have fresh oranges		
+		2: Cells have rotten oranges 
+		A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] 
+		
+		
+	 * @param orangeBox
+	 * @param m
+	 * @param n
+	 */
 	static public void printTimeToRotOranges(int[][] orangeBox, int m, int n) {
 		Queue<Vertex> vertices = new Queue<Vertex>(m * n);
 		/** put all rotten orange vertices in the queue to begin with **/
@@ -49,6 +67,8 @@ public class QueueUtils {
 		Vertex dummy = new Vertex();
 		vertices.enqueue(dummy);
 		int time = 0;
+		
+		/** bfs over the queue **/
 		while (!vertices.isEmpty()) {
 			boolean flag = false;
 			while (!(vertices.top() == dummy)) {
