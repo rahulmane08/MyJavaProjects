@@ -918,6 +918,9 @@ public class ListUtils {
 			return;
 		Node<T> prevFirst = null, prevSecond = null, first = null, second = null;
 		Node<T> curr = list.start;
+		
+		//the prevFirst and prevSecond are the prev nodes of the actual nodes to be swapped
+		//first and second are the actual nodes to swap
 		for (int i = 1; i <= n; i++) {
 			if (i < k)
 				prevFirst = curr;
@@ -926,12 +929,16 @@ public class ListUtils {
 			curr = curr.next;
 		}
 		second = prevSecond.next;
+		
+		//it may happen that we need to swap first and last in which case prevFirst remains null and first becomes list.start and list.start=second
 		if (prevFirst != null) {
 			first = prevFirst.next;
 		} else {
 			first = list.start;
 			list.start = second;
 		}
+		
+		//adjacent nodes
 		if (first.next == second) {
 			first.next = second.next;
 			second.next = first;
@@ -963,12 +970,11 @@ public class ListUtils {
 	static public <T> void deleteAlternate(LinkedList<T> list, boolean even) {
 		if (list == null || list.start == null)
 			return;
-		Node<T> curr = list.start;
+		
 		if (!even) {
-			list.start = list.start.next;
-			curr.next = null;
+			list.start = list.start.next;			
 		}
-		curr = list.start;
+		Node<T> curr = list.start;
 		while (curr != null && curr.next != null) {
 			Node<T> next = curr.next;
 			curr.next = next.next;
@@ -1008,7 +1014,11 @@ public class ListUtils {
 		}
 		reverse(list);
 	}
-
+	
+	/*
+	 *  Inputs:   1->2->3->4->5->6->7->8->9->NULL and k = 3
+		Output:   3->2->1->4->5->6->9->8->7->NULL. 
+	 */
 	static public <T> void reverseAlternativelyAfterK(LinkedList<T> list, int k) {
 		int size = list.size();
 		boolean toReverse = true;
@@ -1027,9 +1037,18 @@ public class ListUtils {
 	static public <T> void reverse(LinkedList<T> list, int start, int offset) {
 		if (list == null || list.start == null)
 			return;
+		
+		/**
+		 *  calculate the real offset, it may happen than the remaining length of list is less than offset
+		 *  in which case offset = remaining length;
+		 */
 		int size = list.size();
 		if ((offset + start - 1) > size)
 			offset = size - start;
+		
+		//init prev curr first and last pointers
+		// first = node before the first node of swapped sublist
+		// last = 
 		Node<T> prev = null, curr = list.start, first, last;
 		for (int i = 1; i < start; i++) {
 			prev = curr;
