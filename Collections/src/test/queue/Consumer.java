@@ -1,30 +1,28 @@
 package test.queue;
 
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class Consumer<T> implements Runnable {
 
 	BlockingQueue<T> queue;
-	List<T> elements;
 	String name;
-	public Consumer(BlockingQueue<T> queue, List<T> elements, String name) 
+	public Consumer(BlockingQueue<T> queue, String name) 
 	{
 		super();
 		this.queue = queue;
-		this.elements = elements;
 		this.name = name;
 	}
 	@Override
 	 public void run() {		      
 	      System.out.println(name+" Started");
-	      while(true)
+	      while(!Thread.currentThread().isInterrupted())
 	      {		    	  
 	    	  try {	    		
 				System.out.println(name+" consumed = "+queue.take());
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println(name+" is interrupted");
+				Thread.currentThread().interrupt();				
 			}
 	      }
 	 }
