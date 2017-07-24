@@ -2,11 +2,11 @@ package test.queue;
 
 import java.util.concurrent.BlockingQueue;
 
-public class Consumer<T> implements Runnable {
+public class Consumer implements Runnable {
 
-	BlockingQueue<T> queue;
+	BlockingQueue<String> queue;
 	String name;
-	public Consumer(BlockingQueue<T> queue, String name) 
+	public Consumer(BlockingQueue<String> queue, String name) 
 	{
 		super();
 		this.queue = queue;
