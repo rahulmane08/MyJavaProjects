@@ -1088,4 +1088,78 @@ public class TreeUtils
 		createDoubleTree(doubleRoot.left);
 		createDoubleTree(root.right);	
 	}
+	
+	static public class TopViewUtil
+	{
+		int minIndex = Integer.MAX_VALUE;
+		Map<Integer, Entry> levels = new HashMap<>();
+		
+		class Entry
+		{
+			int hLevel;
+			Node node;
+			public Entry(int hLevel, Node node) {
+				super();
+				this.hLevel = hLevel;
+				this.node = node;
+			}
+			public int gethLevel() {
+				return hLevel;
+			}
+			public Node getNode() {
+				return node;
+			}
+			public void sethLevel(int hLevel) {
+				this.hLevel = hLevel;
+			}
+			public void setNode(Node node) {
+				this.node = node;
+			}						
+		}
+		public TopViewUtil() {
+			super();
+		}
+		
+		public void topLevelTraversal(Node root)
+		{			
+			if(root==null)
+				return;
+			int vLevel = 0, hLevel = 0;
+			this.topLevelTraversalUtil(root, vLevel, hLevel);
+			Entry key = levels.get(minIndex);
+			do
+			{
+				System.out.println(key.getNode());
+				key = levels.get(++minIndex);
+			}
+			while(key!=null);
+		}
+		private void topLevelTraversalUtil(Node root, int vLevel, int hLevel)
+		{
+			if(root==null)
+				return;
+			topLevelTraversalUtil(root.left, vLevel-1, hLevel+1);
+			if(minIndex>vLevel)
+				minIndex = vLevel;
+			pushToMap(vLevel, hLevel, root);
+			topLevelTraversalUtil(root.right, vLevel+1, hLevel+1);
+		}
+		
+		private void pushToMap(int vLevel, int hLevel, Node node)
+		{
+			Entry e = levels.get(vLevel);
+			if(e==null)
+				levels.put(vLevel, new Entry(hLevel,node));
+			else
+			{
+				if(hLevel<e.gethLevel())
+				{
+					e.setNode(node);
+					e.sethLevel(hLevel);
+				}
+			}
+		}
+	}
+	
+	
 }
