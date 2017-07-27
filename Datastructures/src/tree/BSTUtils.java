@@ -582,5 +582,51 @@ public class BSTUtils
 		}
 		
 	}
-	
+	static public class CorrectBST
+	{
+		private Node prev; 
+		private Node first;
+		private Node mid;
+		private Node second;		
+		
+		
+		public CorrectBST() {
+			super();
+		}
+		public  void correctBst(Node root)
+		{
+			correctBstUtil(root);
+			if(first!=null && second!=null)
+				swapData(first,second);
+			else if(first!=null && mid!=null)
+				swapData(first,mid);
+		}
+		private void swapData(Node x, Node y)
+		{
+			int temp = x.data;
+			x.data = y.data;
+			y.data = temp;
+		}
+		public void correctBstUtil(Node root)
+		{
+			
+			if(root==null)
+				return;
+			correctBstUtil(root.left);			
+			if(prev!=null && prev.data>root.data)
+			{
+				if(first==null)
+				{
+					first = prev;
+					mid = root;
+				}	
+				else
+					second=root;				
+			}
+			
+			prev=root;
+			correctBstUtil(root.right);
+			
+		}
+	}	
 }
