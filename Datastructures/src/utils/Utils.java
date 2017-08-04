@@ -25,4 +25,19 @@ public class Utils
 			System.out.println();
 		}
 	}
+	public static int min(int... x)
+	{
+		int res = x[0];
+		for(int i=1;i<x.length;i++)
+			res = Math.min(res, x[i]);
+		return res;
+	}
+	
+	public static int max(int... x)
+	{
+		int res = x[0];
+		for(int i=1;i<x.length;i++)
+			res = Math.max(res, x[i]);
+		return res;
+	}
 }
