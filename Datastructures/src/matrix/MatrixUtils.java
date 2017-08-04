@@ -1,5 +1,5 @@
 package matrix;
-
+import utils.Utils;
 public class MatrixUtils {
 	static public void rotateMatrix(int mat[][], int N)
 	{
@@ -50,25 +50,23 @@ public class MatrixUtils {
 	 */
 	static public void diagonalPrint(int m, int n, int matrix[][])
 	{
-		 // There will be ROW+COL-1 lines in the output
-	    for (int line=1; line<=(m + n -1); line++)
-	    {
-	        /* Get column index of the first element in this line of output.
-	           The index is 0 for first ROW lines and line - ROW for remaining
-	           lines  */
-	        int start_col =  Math.max(0, line-m);
-	 
-	        /* Get count of elements in this line. The count of elements is
-	           equal to minimum of line number, COL-start_col and ROW */
-	         int count = Math.min(line,  Math.min((n-start_col), m));
-	 
-	        /* Print elements of this line */
-	        for (int j=0; j<count; j++)
-	            System.out.printf("%5d ", matrix[Math.min(m, line)-j-1][start_col+j]);
-	 
-	        /* Ptint elements of next diagonal on next line */
-	        System.out.println();
-	    }
+		 int LINES = m+n-1;
+		
+		for(int line=1;line<=LINES;line++)
+		{
+			int col_idx = Math.max(0, line-m);
+			int row_idx = Math.min(m-1, line-1);
+			int elements = Utils.min(line,  n-col_idx, m);;
+//			System.out.println(line+","+row_idx+","+col_idx+","+elements);
+			for(int i=0;i<elements;i++)
+			{
+				int x = (row_idx-i);
+				int y = Math.abs(i-col_idx);
+//				System.out.print(x+""+y+" ");
+				System.out.print(matrix[x][y]+" ");
+			}
+			System.out.println();
+		}
 	}
 	
 	
