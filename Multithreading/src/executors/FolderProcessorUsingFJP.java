@@ -26,7 +26,7 @@ class FolderProcessor extends RecursiveTask<List<String>>
 	protected List<String> compute() {
 		List<String> results = new ArrayList<String>();
 		//FolderProcessor tasks to store the subtasks that are going to process the subfolders stored in the folder
-	    List<FolderProcessor> tasks = new ArrayList<FolderProcessor>();
+	    List<FolderProcessor> subTasksForChildDirectories = new ArrayList<FolderProcessor>();
 		File f = new File(fileName);
 	    File[] contents = f.listFiles();
 		if(contents!=null)
@@ -37,7 +37,7 @@ class FolderProcessor extends RecursiveTask<List<String>>
 				{
 					FolderProcessor subTask = new FolderProcessor(curr.getAbsolutePath(), extension);
 					subTask.fork(); //fork out the subtask, async call
-					tasks.add(subTask);
+					subTasksForChildDirectories.add(subTask);
 				}
 				else
 				{
@@ -46,7 +46,7 @@ class FolderProcessor extends RecursiveTask<List<String>>
 					
 				}
 			}
-			for(FolderProcessor subTask: tasks)
+			for(FolderProcessor subTask: subTasksForChildDirectories)
 				results.addAll(subTask.join()); // synchronus call
 		}
 		return results;

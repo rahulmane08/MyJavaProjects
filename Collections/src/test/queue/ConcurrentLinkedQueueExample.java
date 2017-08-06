@@ -1,4 +1,4 @@
-package test.queue;
+/*package test.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -55,3 +55,4 @@ class Consumer implements Runnable {
       }
    }
 }
+*/

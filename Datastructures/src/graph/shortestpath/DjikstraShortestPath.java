@@ -29,7 +29,13 @@ public class DjikstraShortestPath
 			return o1.getValue().compareTo(o2.getValue());
 		}
 	};
-	
+	/*
+	 * 1. for each vertex set the minweight as INF, for start vertex set it as 0 and parents(start,NULL)
+	 * 2. for each edge, find the neighbor and if its not in unvisited then skip
+	 * 3. else and compute if u+uv<v'
+	 * 4. Find min node
+	 * 
+	 */
 	static public <T> Map<List<Vertex<T>>, Integer> getShortestPaths(Graph<T> graph, Vertex<T> start)
 	{
 		Map<Vertex<T>,Vertex<T>> parents = new HashMap<>();

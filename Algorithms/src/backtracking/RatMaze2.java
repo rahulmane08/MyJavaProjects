@@ -48,22 +48,6 @@ public class RatMaze2 {
 		return (row>=0 && row<this.row) && (col>=0 && col<this.col) && maze[row][col]==1;
 	}
 	
-	class Index
-	{
-		final int x;
-		final int y;
-		public Index(int x, int y) {
-			super();
-			this.x = x;
-			this.y = y;
-		}
-		public int getX() {
-			return x;
-		}
-		public int getY() {
-			return y;
-		}		
-	}
 	
 	private List<Index> getOptions(int x, int y)
 	{
