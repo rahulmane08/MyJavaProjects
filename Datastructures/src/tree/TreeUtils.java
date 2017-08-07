@@ -581,9 +581,7 @@ public class TreeUtils
 		
 		int leftDiameter = diameter(root.left);
 		int rightDiameter = diameter(root.right);
-		int maxDiameter = Math.max(leftDiameter, rightDiameter); //find which tree is giving max diameter
-		
-		return Math.max(nodesInLongestPath, maxDiameter);	
+		return Utils.max(nodesInLongestPath, leftDiameter, rightDiameter);	
 	}
 	
 	/**
@@ -646,7 +644,7 @@ public class TreeUtils
 		if(root==null)
 			return;
 		path.add(root.data);
-		if(root.left==null && root.right==null)
+		if(isLeaf(root))
 		{
 			System.out.println("Found a path = "+path);			
 		}
@@ -965,9 +963,7 @@ public class TreeUtils
 			++children;
 		if(root.right!=null)
 			++children;
-		if(children!=0 || children!=2)
-			return false;
-		return isStrictTree(root.left) && isStrictTree(root.right);
+		return (children==0 || children==2) && isStrictTree(root.left) && isStrictTree(root.right);
 	}
 	
 	static public void printKthLevelNodes(Node root, int k)
