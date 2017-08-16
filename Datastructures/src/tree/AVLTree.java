@@ -1,7 +1,8 @@
 package tree;
 
-public class AVLTree extends BinarySearchTree 
+public class AVLTree 
 {
+	private Node root;
 	private Node rotateRight(Node root)
 	{
 		Node newRoot = root.left;

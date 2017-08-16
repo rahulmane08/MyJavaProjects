@@ -40,4 +40,34 @@ public class Utils
 			res = Math.max(res, x[i]);
 		return res;
 	}
+	
+	public static int countDigits(int n)
+	{
+		int digits = 0;
+		int rem = Math.abs(n);
+		do{
+			++digits;
+			rem = rem/10;
+		}
+		while(rem>0);
+		return digits;
+	}
+	
+	public static void main(String[] args) {
+		int n =73849949;
+		System.out.println(mostSignificantDigit(n,countDigits(n)));
+	}
+	
+	public static int mostSignificantDigit(int n, int digits)
+	{
+		if(digits==1)
+			return n;
+		int rem = Math.abs(n);
+		do{
+			rem = rem/10;
+			--digits;
+		}
+		while(digits!=1);
+		return rem;
+	}
 }

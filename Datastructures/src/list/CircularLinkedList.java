@@ -1,6 +1,6 @@
 package list;
 
-public class CircularLinkedList extends EmptyList<Integer>
+public class CircularLinkedList 
 {
 	
 	private Node start;

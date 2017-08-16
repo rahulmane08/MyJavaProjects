@@ -1,5 +1,9 @@
 package array;
 
+import java.util.Comparator;
+
+import utils.Utils;
+
 public class Arrays {
 	static public void countPairsEqualToN(int[] arr, int N) {
 		java.util.Arrays.sort(arr);// nlog(n)
@@ -170,5 +174,47 @@ public class Arrays {
 				merged[idx++]=b[j++];
 		
 		return merged;
+	}
+	
+	public static String concatenateArrayToLargestNumber(Integer[] arr)
+	{
+		StringBuilder result=new StringBuilder();
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				int digits1 = Utils.countDigits(o1);
+				int digits2 = Utils.countDigits(o2);
+				if(digits1!=digits2)
+				{
+					int msd1 = o1,msd2=o2;
+					do{
+						msd1=Utils.mostSignificantDigit(o1, digits1--);
+						msd2=Utils.mostSignificantDigit(o2, digits2--);
+					}
+					while(msd1==msd2);
+					if(msd1>msd2)
+						return -1;
+					else if(msd1<msd2)
+						return 1;
+					else 
+						return 0;
+					
+				}				
+				return o2.compareTo(o1);
+			}
+		};
+		java.util.Arrays.sort(arr,comparator);
+		for(int i:arr)
+			result.append(String.valueOf(i));
+		return result.toString();
+	}
+	
+	static public void rotate(int[] arr, int d)
+	{
+		if(arr==null)  return;
+		int n = arr.length;
+		
+		
 	}
 }
