@@ -7,6 +7,42 @@
     <groupId>com.rmane</groupId>
     <artifactId>MyXenonProject</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-
+    <properties>
+        <xenon.version>1.5.7</xenon.version>
+        <xenon-utils.version>0.0.1</xenon-utils.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.vmware.xenon</groupId>
+            <artifactId>xenon-common</artifactId>
+            <version>0.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware.xenon</groupId>
+            <artifactId>xenon-slf4j</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware.xenon</groupId>
+            <artifactId>xenon-swagger</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware.xenon</groupId>
+            <artifactId>xenon-dns</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware.xenon</groupId>
+            <artifactId>xenon-loader</artifactId>
+            <version>1.5.7</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.vmware.xenon/xenon-parent -->
+        <dependency>
+            <groupId>com.vmware.xenon</groupId>
+            <artifactId>xenon-parent</artifactId>
+            <version>1.5.7</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
 </project>
