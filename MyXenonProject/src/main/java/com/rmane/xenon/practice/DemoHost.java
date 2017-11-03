@@ -26,6 +26,7 @@ public class DemoHost extends ServiceHost
 
         //start the employee factory service
         this.startService(new EmployeeFactoryService());
+//        this.startFactory(new EmployeeService());
 
         return this;
     }

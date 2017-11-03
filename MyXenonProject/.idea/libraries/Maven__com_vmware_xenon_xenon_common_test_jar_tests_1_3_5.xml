@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.vmware.xenon:xenon-common:test-jar:tests:1.3.5">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vmware/xenon/xenon-common/1.3.5/xenon-common-1.3.5-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vmware/xenon/xenon-common/1.3.5/xenon-common-1.3.5-test-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vmware/xenon/xenon-common/1.3.5/xenon-common-1.3.5-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.vmware.xenon:xenon-dns:1.1.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vmware/xenon/xenon-dns/1.1.1/xenon-dns-1.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vmware/xenon/xenon-dns/1.1.1/xenon-dns-1.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vmware/xenon/xenon-dns/1.1.1/xenon-dns-1.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
